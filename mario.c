@@ -18,7 +18,7 @@ int main(void)
 
     for(int j = 0; j < height; j++)
     {
-        print_bs(height - j);
+        print_bs(height - j - 1);
         print_row(j + 1);
         print_bs(2);
         print_row2(j + 1);
