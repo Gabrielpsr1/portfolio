@@ -19,8 +19,6 @@ int main(void)
     int boolean = verification(sum,multiplication);
     int two_digits = two_first_digits(card_number ,digits);
 
-    printf("%i\n", two_digits);
-    printf("%i\n", digits);
     print_verify(digits,boolean,two_digits);
 
 
