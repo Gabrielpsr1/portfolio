@@ -19,6 +19,8 @@ int main(void)
     int boolean = verification(sum,multiplication);
     int two_digits = two_first_digits(card_number ,digits);
 
+    printf("%i\n" ,digits );
+    printf("%i\n", two_digits);
     print_verify(digits,boolean,two_digits);
 
 
@@ -95,7 +97,7 @@ void print_verify(int digits,int boolean,int two_digits)
 {
     if((digits == 13 || digits == 15 || digits == 16) && boolean == 1)
     {
-        if(digits == 15 && (two_digits = 37 || two_digits == 34))
+        if(digits == 15 && (two_digits == 37 || two_digits == 34))
         {
             printf("AMEX\n");
         }
