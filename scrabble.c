@@ -42,7 +42,7 @@ int score(string player)
             }
 
         //counts the points
-        if(x == 'A' || x == 'E' || x == 'O' || x == 'N' || x == 'S' || x == 'T' || x == 'U' || x == 'L')
+        if(x == 'A' || x == 'E'|| x == 'I' || x == 'R' || x == 'O' || x == 'N' || x == 'S' || x == 'T' || x == 'U' || x == 'L')
         {
             sum += 1;
         }
