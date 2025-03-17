@@ -9,6 +9,7 @@
 int words(string str);
 int letters(string str);
 int sentences(string str);
+void print(float index);
 
 
 int main(void)
@@ -18,12 +19,13 @@ int main(void)
     int letters_count = letters(str);
     int sentences_count = sentences(str);
 
+    //calculate the index
     int l = letters_count/words_count;
     int s = sentences_count/words_count;
-
     float index = 0.0588 * l - 0.296 * s - 15.8;
 
-
+    //print the results
+    print(index);
 
 
 }
