@@ -15,13 +15,13 @@ void print(float index);
 int main(void)
 {
     string str = get_string("text: ");
-    int words_count = words(str);
-    int letters_count = letters(str);
-    int sentences_count = sentences(str);
+    float words_count = words(str);
+    float letters_count = letters(str);
+    float sentences_count = sentences(str);
 
     //calculate the index
-    float l = letters_count/words_count;
-    float s = sentences_count/words_count;
+    float l = (letters_count/words_count) * 100;
+    float s = (sentences_count/words_count) * 100;
     float index = 0.0588 * l - 0.296 * s - 15.8;
 
     //print the results
