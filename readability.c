@@ -20,8 +20,8 @@ int main(void)
     int sentences_count = sentences(str);
 
     //calculate the index
-    int l = letters_count/words_count;
-    int s = sentences_count/words_count;
+    float l = letters_count/words_count;
+    float s = sentences_count/words_count;
     float index = 0.0588 * l - 0.296 * s - 15.8;
 
     //print the results
