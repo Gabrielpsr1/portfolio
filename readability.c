@@ -1,16 +1,13 @@
 #include <cs50.h>
 #include <ctype.h>
 #include <math.h>
-#include <string.h>
 #include <stdio.h>
-
-
+#include <string.h>
 
 int words(string str);
 int letters(string str);
 int sentences(string str);
 void print(double index);
-
 
 int main(void)
 {
@@ -19,36 +16,30 @@ int main(void)
     float letters_count = letters(str);
     float sentences_count = sentences(str);
 
-    //calculate the index
-    double l = (letters_count/words_count) * 100;
-    double s = (sentences_count/words_count) * 100;
+    // calculate the index
+    double l = (letters_count / words_count) * 100;
+    double s = (sentences_count / words_count) * 100;
     double index = 0.0588 * l - 0.296 * s - 15.8;
 
-    //print the results
+    // print the results
     print(index);
-
-
 }
 
-
-
-
-
-//FUNCTIONS
+// FUNCTIONS
 
 void print(double index)
 {
-    if(index < 1)
+    if (index < 1)
     {
         printf("Before Grade 1\n");
     }
-    else if(index > 16)
+    else if (index > 16)
     {
         printf("Grade 16+\n");
     }
     else
     {
-        printf("Grade %i\n",(int) round(index));
+        printf("Grade %i\n", (int) round(index));
     }
 }
 
@@ -56,9 +47,9 @@ void print(double index)
 int words(string str)
 {
     int words_count = 1;
-    for(int i = 0,len = strlen(str); i < len; i++)
+    for (int i = 0, len = strlen(str); i < len; i++)
     {
-        if(str[i] == ' ')
+        if (str[i] == ' ')
         {
             words_count += 1;
         }
@@ -66,13 +57,13 @@ int words(string str)
     return words_count;
 }
 
-//count letters
+// count letters
 int letters(string str)
 {
     int letters_count = 0;
-    for(int i = 0,len = strlen(str); i < len; i++)
+    for (int i = 0, len = strlen(str); i < len; i++)
     {
-        if(isalpha(str[i]))
+        if (isalpha(str[i]))
         {
             letters_count += 1;
         }
@@ -80,19 +71,16 @@ int letters(string str)
     return letters_count;
 }
 
-
-//count sentences
+// count sentences
 int sentences(string str)
 {
     int sentences_count = 0;
-    for(int i = 0,len = strlen(str); i < len; i++)
+    for (int i = 0, len = strlen(str); i < len; i++)
     {
-        if(str[i] == '.' || str[i] == '!' || str[i] == '?')
+        if (str[i] == '.' || str[i] == '!' || str[i] == '?')
         {
             sentences_count += 1;
         }
     }
     return sentences_count;
 }
-
-
