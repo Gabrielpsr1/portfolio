@@ -18,7 +18,7 @@ int main(int argc, string argv[])
         string text = get_string("text: ");
         int k = c;
         text = cypher(text,k);
-        printf("%s\n", text);
+        printf("ciphertext: %s\n", text);
 
 
 
