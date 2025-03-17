@@ -87,7 +87,7 @@ int sentences(string str)
     int sentences_count = 0;
     for(int i = 0,len = strlen(str); i < len; i++)
     {
-        if(str[i] == '.' || str[i] == '!' || str[i] == '?' || str[i] == ';')
+        if(str[i] == '.' || str[i] == '!' || str[i] == '?')
         {
             sentences_count += 1;
         }
