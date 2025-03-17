@@ -9,7 +9,7 @@
 int words(string str);
 int letters(string str);
 int sentences(string str);
-void print(float index);
+void print(double index);
 
 
 int main(void)
@@ -20,9 +20,9 @@ int main(void)
     float sentences_count = sentences(str);
 
     //calculate the index
-    float l = (letters_count/words_count) * 100;
-    float s = (sentences_count/words_count) * 100;
-    float index = 0.0588 * l - 0.296 * s - 15.8;
+    double l = (letters_count/words_count) * 100;
+    double s = (sentences_count/words_count) * 100;
+    double index = 0.0588 * l - 0.296 * s - 15.8;
 
     //print the results
     print(index);
@@ -36,7 +36,7 @@ int main(void)
 
 //FUNCTIONS
 
-void print(float index)
+void print(double index)
 {
     if(index < 1)
     {
