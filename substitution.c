@@ -5,6 +5,7 @@
 #include <string.h>
 
 bool only_letters(string key);
+bool duplicate_letters(string key);
 string cipher(string text,string key);
 
 int main(int argc, string argv[])
@@ -16,15 +17,28 @@ int main(int argc, string argv[])
         printf("Usage: ./substitution key\n");
         return 1;
     }
-    if(strlen(key) != 26)
+    if(strlen(key) != 26 || duplicate_letters(key))
     {
-        printf("Key must have 26 letters.\n");
+        printf("Key must have 26 different letters.\n");
         return 1;
     }
     string text = get_string("plaintext: ");
     printf("ciphertext: %s\n", cipher(text,key));
 }
 
+bool duplicate_letters(string key)
+{
+    int ascii = 2015;
+    for(int i = 0,len = strlen(key); i<len;i++)
+    {
+        ascii -= key[i];
+    }
+    if(ascii != 0)
+    {
+        return 2;
+    }
+    return 0;
+}
 
 bool only_letters(string key)
 {
