@@ -28,10 +28,13 @@ int main(int argc, string argv[])
 
 bool duplicate_letters(string key)
 {
+
     for (int i = 0, len = strlen(key); i < len; i++)
     {
+        key[i] = toupper(key[i]);
         for (int j = i + 1; i < len; j++)
         {
+            key[j] = toupper(key[j]);
             if (key[i] == key[j])
             {
                 return 1;
