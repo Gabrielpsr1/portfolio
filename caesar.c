@@ -11,36 +11,29 @@ int main(int argc, string argv[])
 {
     string argvector = argv[1];
 
-    if(argc != 2 || only_digits(argvector))
+    if (argc != 2 || only_digits(argvector))
     {
         printf("Usage: ./caesar key\n");
         return 1;
     }
 
-
-        string text = get_string("text: ");
-        int k = atoi(argv[1]);
-        text = cypher(text,k);
-        printf("ciphertext: %s\n", text);
-
-
-
+    string text = get_string("text: ");
+    int k = atoi(argv[1]);
+    text = cypher(text, k);
+    printf("ciphertext: %s\n", text);
 }
-
 
 bool only_digits(string argvector)
 {
-    for(int i = 0,len = strlen(argvector); i < len;i++)
+    for (int i = 0, len = strlen(argvector); i < len; i++)
     {
-        if( argvector[i] < '0'   ||   argvector[i] > '9' )
+        if (argvector[i] < '0' || argvector[i] > '9')
         {
             return 2;
         }
     }
     return 0;
 }
-
-
 
 string cypher(string text, int k)
 {
@@ -65,4 +58,3 @@ string cypher(string text, int k)
     }
     return text;
 }
-
