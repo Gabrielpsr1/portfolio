@@ -5,23 +5,37 @@
 #include <string.h>
 
 string cypher(string text, int k);
+bool only_digits(string argvector);
 
 int main(int argc, string argv[])
 {
-    char c = atoi(argv[1]);
-    if(argc != 2 && !isalnum(c))
+    string argvector = argv[1];
+    if(argc != 2 && !only_digits(argvector))
     {
-        printf("use: ./caesar key");
+        printf("Usage: ./caesar key");
         return 1;
     }
 
         string text = get_string("text: ");
-        int k = c;
+        int k = atoi(argv[1]);
         text = cypher(text,k);
         printf("ciphertext: %s\n", text);
 
 
 
+}
+
+
+bool only_digits(string argvector)
+{
+    for(int i = 0,len = strlen(argvector); i < len;i++)
+    {
+        if(isalpha(argvector[i]))
+        {
+            return 2;
+        }
+    }
+    return 0;
 }
 
 string cypher(string text, int k)
