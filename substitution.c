@@ -17,7 +17,7 @@ int main(int argc, string argv[])
         printf("Usage: ./substitution key\n");
         return 1;
     }
-    if (strlen(key) != 26 || duplicate_letters(key))
+    if (strlen(key) != 26 || !duplicate_letters(key))
     {
         printf("Key must have 26 different letters.\n");
         return 1;
