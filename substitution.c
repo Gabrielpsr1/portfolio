@@ -28,7 +28,8 @@ int main(int argc, string argv[])
 
 bool duplicate_letters(string key)
 {
-    for (int i = 0, len = strlen(key); i < len; i++)
+    int len = strlen(key);
+    for (int i = 0; i < len; i++)
     {
         for (int j = i + 1; i < len; j++)
         {
