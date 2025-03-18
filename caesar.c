@@ -9,15 +9,11 @@ bool only_digits(string argvector);
 
 int main(int argc, string argv[])
 {
-    printf("%i",argc);
-    printf("%s",argv[1]);
-
-
     string argvector = argv[1];
 
     if(argc != 2 || only_digits(argvector))
     {
-        printf("Usage: ./caesar key");
+        printf("Usage: ./caesar key\n");
         return 1;
     }
 
@@ -36,7 +32,7 @@ bool only_digits(string argvector)
 {
     for(int i = 0,len = strlen(argvector); i < len;i++)
     {
-        if(isalpha(argvector[i]))
+        if( argvector[i] < '0'   ||   argvector[i] > '9' )
         {
             return 2;
         }
