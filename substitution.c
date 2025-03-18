@@ -19,7 +19,7 @@ int main(int argc, string argv[])
     if(strlen(key) != 26)
     {
         printf("Key must have 26 letters.\n");
-        return 3;
+        return 1;
     }
     string text = get_string("plaintext: ");
     printf("ciphertext: %s\n", cipher(text,key));
