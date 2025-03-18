@@ -31,6 +31,7 @@ bool duplicate_letters(string key)
     int ascii = 2015;
     for(int i = 0,len = strlen(key); i<len;i++)
     {
+        key[i] = toupper(key[i]);
         ascii -= key[i];
     }
     if(ascii != 0)
