@@ -40,9 +40,18 @@ bool only_letters(string key)
 
 string cipher(string text,string key)
 {
+    int ci;
     for(int i=0,len=strlen(text); i < len; i++)
     {
-        int ci = text[i] - 'a';
+        if(islower(text[i]))
+        {
+             ci = text[i] - 'a';
+        }
+        else
+        {
+             ci = text[i] - 'A';
+        }
+
         text[i] = key[ci];
     }
     return text;
