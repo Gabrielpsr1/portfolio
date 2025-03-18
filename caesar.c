@@ -9,12 +9,18 @@ bool only_digits(string argvector);
 
 int main(int argc, string argv[])
 {
+    printf("%i",argc);
+    printf("%s",argv[1]);
+
+
     string argvector = argv[1];
-    if(argc != 2 && !only_digits(argvector))
+
+    if(argc != 2 || only_digits(argvector))
     {
         printf("Usage: ./caesar key");
         return 1;
     }
+
 
         string text = get_string("text: ");
         int k = atoi(argv[1]);
@@ -37,6 +43,8 @@ bool only_digits(string argvector)
     }
     return 0;
 }
+
+
 
 string cypher(string text, int k)
 {
