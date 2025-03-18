@@ -49,7 +49,7 @@ string cipher(string text,string key)
              key[ci] = tolower(key[ci]);
              text[i] = key[ci];
         }
-        else
+        if(isupper(text[i]))
         {
              ci = text[i] - 'A';
              key[ci] = toupper(key[ci]);
