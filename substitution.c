@@ -46,11 +46,13 @@ string cipher(string text,string key)
         if(islower(text[i]))
         {
              ci = text[i] - 'a';
-             text[i] = key[ci + 32];
+             key[ci] = tolower(key[ci]);
+             text[i] = key[ci];
         }
         else
         {
              ci = text[i] - 'A';
+             key[ci] = toupper(key[ci]);
              text[i] = key[ci];
         }
     }
