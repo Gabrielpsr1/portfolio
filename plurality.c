@@ -70,11 +70,10 @@ bool vote(string name)
         if (strcmp(name, candidates[j].name) == 0)
         {
             candidates[j].votes++;
-            return true;
+            return false;
         }
     }
-    printf("this is not a candidate\n");
-    return false;
+    return true;
 }
 
 // Print the winner (or winners) of the election
