@@ -94,7 +94,6 @@ void print_winner(void)
             printf("%s\n", candidates[i].name);
         }
     }
-    printf("\n");
 
     return;
 }
