@@ -70,7 +70,7 @@ int vote_count(string vote,candidate candidates_list[])
     {
         if(strcmp(vote,candidates_list[j].name) == 0)
         {
-            candidates[j].votes++;
+            candidates_list[j].votes++;
             return 0;
         }
     }
@@ -98,7 +98,7 @@ void printwinner(int winner_number,candidate candidates_list[])
     {
         if(winner_number == candidates_list[i].votes)
         {
-            printf("%s", candidates_list[i].name);
+            printf("%s\n", candidates_list[i].name);
         }
     }
 }
