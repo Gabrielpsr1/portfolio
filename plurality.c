@@ -102,4 +102,3 @@ void printwinner(int winner_number,candidate candidates_list[])
         }
     }
 }
-// bool valid_vote(string vote,string name)
