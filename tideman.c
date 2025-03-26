@@ -1,6 +1,5 @@
 #include <cs50.h>
 #include <stdio.h>
-#include <string.h>
 
 // Max number of candidates
 #define MAX 9
@@ -197,11 +196,10 @@ void lock_pairs(void)
 {
     for(int i = 0; i< pair_count; i++)
     {
-        
+
     }
     return;
 }
-
 
 // Print the winner of the election
 void print_winner(void)
