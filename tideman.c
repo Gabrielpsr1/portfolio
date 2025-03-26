@@ -237,7 +237,7 @@ void print_winner(void)
         }
         if(print)
         {
-            printf("the winner is %s", candidates[i]);
+            printf("%s\n", candidates[i]);
             return;
         }
     }
