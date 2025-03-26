@@ -226,15 +226,20 @@ void print_winner(void)
     // TODO estabilizar a coluna e ciclar as linha procurando qual n tem falso
     for (int i = 0; i < candidate_count; i++)
     {
+        bool print = true;
         for (int j = 0; j < candidate_count; j++)
         {
             if (locked[j][i])
             {
+                print = false;
                 break;
             }
         }
+        if(print)
+        {
             printf("%s\n", candidates[i]);
 
+        }
     }
     return;
 }
