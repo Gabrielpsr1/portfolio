@@ -34,6 +34,7 @@ void add_pairs(void);
 void sort_pairs(void);
 void lock_pairs(void);
 void print_winner(void);
+bool creates_cycle(int winner, int loser);
 
 int main(int argc, string argv[])
 {
@@ -188,6 +189,13 @@ void lock_pairs(void)
 {
     for (int i = 0; i < pair_count; i++)
     {
+        int winner = pairs[i].winner;
+        int loser = pairs[i].loser;
+
+        if(!creates_cycle(winner,loser))
+        {
+            locked[winner][loser] = true;
+        }
     }
     return;
 }
