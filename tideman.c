@@ -192,7 +192,7 @@ void lock_pairs(void)
         int winner = pairs[i].winner;
         int loser = pairs[i].loser;
 
-        if(!creates_cycle(winner,loser))
+        if (!creates_cycle(winner, loser))
         {
             locked[winner][loser] = true;
         }
@@ -202,16 +202,16 @@ void lock_pairs(void)
 
 bool creates_cycle(int winner, int loser)
 {
-    if(winner == loser)
+    if (winner == loser)
     {
         return true;
     }
 
-    for(int i = 0; i < candidate_count; i++)
+    for (int i = 0; i < candidate_count; i++)
     {
-        if(locked[loser][i])
+        if (locked[loser][i])
         {
-            if (creates_cycle(winner,i))
+            if (creates_cycle(winner, i))
             {
                 return true;
             }
@@ -235,10 +235,9 @@ void print_winner(void)
                 break;
             }
         }
-        if(print)
+        if (print)
         {
             printf("%s\n", candidates[i]);
-
         }
     }
     return;
