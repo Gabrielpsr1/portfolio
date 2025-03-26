@@ -229,7 +229,7 @@ void print_winner(void)
         bool print = true;
         for (int j = 0; j < candidate_count; j++)
         {
-            if (locked[i][j])
+            if (locked[j][i])
             {
                 print = false;
                 break;
