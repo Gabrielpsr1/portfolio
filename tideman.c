@@ -230,7 +230,7 @@ void print_winner(void)
         {
             if (locked[j][i] == true)
             {
-                break;
+                return;
             }
         }
         printf("the winner is %s", candidates[i]);
