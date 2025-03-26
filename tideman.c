@@ -34,7 +34,6 @@ void add_pairs(void);
 void sort_pairs(void);
 void lock_pairs(void);
 void print_winner(void);
-bool creates_cycle(int i);
 
 int main(int argc, string argv[])
 {
@@ -159,7 +158,7 @@ void add_pairs(void)
                 pairs[pair_count - 1].loser = l;
                 pairs[pair_count - 1].diff = i - l;
             }
-            else if(par_um > par_dois)
+            else if(par_um < par_dois)
             {
                 pair_count++;
                 pairs[pair_count - 1].winner = l;
@@ -198,30 +197,11 @@ void lock_pairs(void)
 {
     for(int i = 0; i< pair_count; i++)
     {
-        if(!creates_cycle(i))
-        {
-            locked[pairs[i].winner][pairs[i].loser] = true;
-        }
+        
     }
     return;
 }
 
-// verify if something creates a cicle[pairs[i].winner]
-bool creates_cycle(int i)
-{
-
-    
-    for(int j = 0; j< candidate_count;j++)
-    {
-        if(locked[pairs[i].loser][j] == true)
-        {
-            i = j;
-            return true;
-        }
-    }
-
-    return creates_cycle(i);
-}
 
 // Print the winner of the election
 void print_winner(void)
@@ -233,7 +213,7 @@ void print_winner(void)
         {
             if(locked[j][i] == true)
             {
-                return;
+                break;
             }
         }
         printf("the winner is %s", candidates[i]);
