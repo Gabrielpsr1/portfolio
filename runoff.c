@@ -196,12 +196,13 @@ int find_min(void)
             {
                 if (candidates[preferences[voter][rank]].votes < min)
                 {
-                    min = candidates[preferences[voter][rank]].votes ;
+                    min = candidates[preferences[voter][rank]].votes;
                 }
                 break;
             }
         }
     }
+
 
     return min;
 }
@@ -223,7 +224,16 @@ bool is_tie(int min)
     }
 
 
-    if(ties == candidate_count)
+    int rest = 0;
+    for(int i = 0;i < candidate_count;i ++)
+    {
+        if(!candidates[i].eliminated)
+        {
+            rest++;
+        }
+    }
+
+    if(rest == ties)
     {
         return true;
     }
