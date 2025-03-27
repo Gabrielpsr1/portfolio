@@ -188,20 +188,16 @@ int find_min(void)
     }
 
     // find the min value
-    for (int voter = 0; voter < voter_count; voter++)
-    {
         for (int rank = 0; rank < candidate_count; rank++)
         {
-            if (!candidates[preferences[voter][rank]].eliminated)
+            if (!candidates[rank].eliminated)
             {
-                if (candidates[preferences[voter][rank]].votes < min)
+                if (candidates[rank].votes < min)
                 {
-                    min = candidates[preferences[voter][rank]].votes;
+                    min = candidates[rank].votes;
                 }
-                break;
             }
         }
-    }
 
 
     return min;
