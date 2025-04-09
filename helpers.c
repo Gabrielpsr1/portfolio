@@ -1,9 +1,10 @@
 #include "helpers.h"
+#include <math.h>
 
 // Convert image to grayscale
 void grayscale(int height, int width, RGBTRIPLE image[height][width])
 {
-    float pixel_sum;
+    double pixel_sum;
     // cicling the rows
     for(int i = 0; i<height; i++)
     {
@@ -11,6 +12,7 @@ void grayscale(int height, int width, RGBTRIPLE image[height][width])
         for(int j = 0; j<width; j++)
         {
             pixel_sum = (image[i][j].rgbtBlue + image[i][j].rgbtGreen + image[i][j].rgbtRed)/3 ;
+            pixel_sum = round(pixel_sum);
             image[i][j].rgbtBlue = pixel_sum;
             image[i][j].rgbtGreen = pixel_sum;
             image[i][j].rgbtRed = pixel_sum;
