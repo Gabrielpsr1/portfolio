@@ -8,7 +8,7 @@ void grayscale(int height, int width, RGBTRIPLE image[height][width])
     for(int i = 0; i<height; i++)
     {
         // cicling the coloums
-        for(int i = 0; i<width; i++)
+        for(int j = 0; j<width; j++)
         {
             pixel_sum = (image[i][j].rgbtBlue + image[i][j].rgbtGreen + image[i][j].rgbtRed)/3 ;
             image[i][j].rgbtBlue = pixel_sum;
@@ -22,6 +22,19 @@ void grayscale(int height, int width, RGBTRIPLE image[height][width])
 // Reflect image horizontally
 void reflect(int height, int width, RGBTRIPLE image[height][width])
 {
+    RGBTRIPLE temp;
+    // cicling the rows
+    for(int i = 0; i<height; i++)
+    {
+        // cicling the coloums
+        for(int j = 0; j<width; j++)
+        {
+            temp = image[i][width - 1 - i];
+            image[i][width - 1 - i] = image[i][j];
+            image[i][j] = temp;
+
+        }
+    }
     return;
 }
 
