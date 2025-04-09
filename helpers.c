@@ -12,7 +12,7 @@ void grayscale(int height, int width, RGBTRIPLE image[height][width])
         // cicling the coloums
         for(int j = 0; j<width; j++)
         {
-            pixel_sum = (image[i][j].rgbtBlue + image[i][j].rgbtGreen + image[i][j].rgbtRed)/3 ;
+            pixel_sum = (image[i][j].rgbtBlue + image[i][j].rgbtGreen + image[i][j].rgbtRed)/3.0 ;
             x = round(pixel_sum);
             image[i][j].rgbtBlue = x;
             image[i][j].rgbtGreen = x;
