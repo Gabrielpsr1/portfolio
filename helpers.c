@@ -5,6 +5,7 @@
 void grayscale(int height, int width, RGBTRIPLE image[height][width])
 {
     double pixel_sum;
+    int x;
     // cicling the rows
     for(int i = 0; i<height; i++)
     {
@@ -12,10 +13,10 @@ void grayscale(int height, int width, RGBTRIPLE image[height][width])
         for(int j = 0; j<width; j++)
         {
             pixel_sum = (image[i][j].rgbtBlue + image[i][j].rgbtGreen + image[i][j].rgbtRed)/3 ;
-            pixel_sum = round(pixel_sum);
-            image[i][j].rgbtBlue = round(pixel_sum);
-            image[i][j].rgbtGreen = round(pixel_sum);
-            image[i][j].rgbtRed = round(pixel_sum);
+            x = round(pixel_sum);
+            image[i][j].rgbtBlue = x;
+            image[i][j].rgbtGreen = x;
+            image[i][j].rgbtRed = x;
         }
     }
     return;
