@@ -60,7 +60,7 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
                 // verify if k is valid
                 if (k < 0 || k > height - 1)
                 {
-                    break;
+                    continue;
                 }
 
                 // cicling the coloums of the 3x3
@@ -69,7 +69,7 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
                     // verify l is valid
                     if (l < 0 || l > width - 1)
                     {
-                        break;
+                        continue;
                     }
                     // update the sum to do the average
                     sum_blue += image[k][l].rgbtBlue;
