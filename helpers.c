@@ -43,16 +43,16 @@ void reflect(int height, int width, RGBTRIPLE image[height][width])
 // Blur image
 void blur(int height, int width, RGBTRIPLE image[height][width])
 {
-    float sum_blue = 0;
-    float sum_green = 0;
-    float sum_red = 0;
-    float number_m = 0;
     // cicling the rows
     for (int i = 0; i < height; i++)
     {
         // cicling the coloums
         for (int j = 0; j < width; j++)
         {
+            float sum_blue = 0;
+            float sum_green = 0;
+            float sum_red = 0;
+            float number_m = 0;
 
             // cicling the row of the 3x3 cube
             for (int k = i - 1; k <= i + 1; k++)
