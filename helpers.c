@@ -120,7 +120,6 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
                 {
                     continue;
                 }
-                int x;
                 // cicle the coloums of the 3x3: Gx
                 for (int l = j - 1; l <= j + 1; l++)
                 {
@@ -143,8 +142,6 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
                 {
                     continue;
                 }
-                int y;
-
                 // cicle the coloums of the 3x3: Gx
                 for (int l = j - 1; l <= j + 1; l++)
                 {
@@ -160,20 +157,20 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
             }
             //red
             temp[i][j].rgbtBlue = (int) round(sqrt((blue1 * blue1) + (blue2 * blue2)));
-            if (temp[i][j].rgbtBlue > 255)
+            if ((int) round(sqrt((blue1 * blue1) + (blue2 * blue2))) > 255)
             {
                 temp[i][j].rgbtBlue = 255;
             }
             // Green
             temp[i][j].rgbtGreen = (int) round(sqrt((green1 * green1) + (green2 * green2)));
-            if (temp[i][j].rgbtGreen > 255)
+            if ((int) round(sqrt((green1 * green1) + (green2 * green2))) > 255)
             {
                 temp[i][j].rgbtGreen = 255;
             }
 
             // Red
             temp[i][j].rgbtRed = (int) round(sqrt((red1 * red1) + (red2 * red2)));
-            if (temp[i][j].rgbtRed > 255)
+            if ((int) round(sqrt((red1 * red1) + (red2 * red2))) > 255)
             {
                 temp[i][j].rgbtRed = 255;
             }
