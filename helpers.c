@@ -46,7 +46,7 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
     float sum_blue = 0;
     float sum_green = 0;
     float sum_red = 0;
-    int number_m = 0;
+    float number_m = 0;
     // cicling the rows
     for (int i = 0; i < height; i++)
     {
@@ -71,11 +71,6 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
                     {
                         break;
                     }
-                    else if( k == i && l == j)
-                    {
-                        break;
-                    }
-
                     // update the sum to do the average
                     sum_blue += image[k][l].rgbtBlue;
                     sum_green += image[k][l].rgbtGreen;
