@@ -66,8 +66,12 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
                 // cicling the coloums of the 3x3
                 for (int l = j - 1; l <= j + 1; l++)
                 {
-                    // verify l
+                    // verify l is valid
                     if (l < 0 || l > width - 1)
+                    {
+                        break;
+                    }
+                    else if( k == i && l == j)
                     {
                         break;
                     }
