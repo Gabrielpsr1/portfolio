@@ -79,9 +79,9 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
                     number_m++;
                 }
             }
-            temp[i][j].rgbtBlue = roud(sum_blue / number_m);
-            temp[i][j].rgbtGreen = roud(sum_green / number_m);
-            temp[i][j].rgbtRed = round(sum_red / number_m);
+            temp[i][j].rgbtBlue = (float)roud(sum_blue / number_m);
+            temp[i][j].rgbtGreen = (float)roud(sum_green / number_m);
+            temp[i][j].rgbtRed =(float)round(sum_red / number_m);
         }
     }
     for(int i = 0; i < height; i++)
