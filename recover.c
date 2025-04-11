@@ -38,7 +38,6 @@ int main(int argc, char *argv[])
                     return 2;
                 }
                 fwrite(buffer,sizeof(uint8_t),512,img);
-                file_count++;
             }
             // else close the file,open the new file
             else
