@@ -6,16 +6,16 @@ int main(int argc, char *argv[])
 {
     if(argc != 2)
     {
+        printf("Usage: ./recover FILE\n");
         return 1;
     }
 
-    char* raw = argv[1];
     int file_count = 0;
     char filename[20];
     FILE *img;
     uint8_t* buffer = malloc(512 * sizeof(uint8_t));
     // open the memory card file
-    FILE *card = fopen(raw, "r");
+    FILE *card = fopen(argv[1], "r");
     if(card == NULL)
     {
         return 2;
