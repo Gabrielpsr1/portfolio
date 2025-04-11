@@ -4,12 +4,21 @@
 
 int main(int argc, char *argv[])
 {
+    if(argc != 2)
+    {
+        return 1;
+    }
 
+    char* raw = argv[1];
     int file_count = 0;
     char filename[20];
     FILE *img;
     // open the memory card file
-    FILE *card = fopen("card.raw", "r");
+    FILE *card = fopen(raw, "r");
+    if(card == NULL)
+    {
+        return 2;
+    }
     // repeat until end of the file
     // read 512 bytes into a buffer
     uint8_t buffer[512];
@@ -22,7 +31,7 @@ int main(int argc, char *argv[])
             // if it is the first jpeg 001...
             if (file_count == 0)
             {
-                sprintf(filename,"%03i.jpeg", file_count + 1);
+                sprintf(filename,"%03i.jpeg", file_count);
                 img =fopen(filename,"w");
                 fwrite(buffer,sizeof(uint8_t),512,img);
                 file_count++;
@@ -32,7 +41,7 @@ int main(int argc, char *argv[])
             {
                 fclose(img);
                 file_count++;
-                sprintf(filename,"%03i.jpeg", file_count + 1);
+                sprintf(filename,"%03i.jpeg", file_count);
                 img = fopen(filename, "w");
                 fwrite(buffer,sizeof(uint8_t),512,img);
             }
