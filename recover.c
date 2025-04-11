@@ -63,4 +63,5 @@ int main(int argc, char *argv[])
     // close
     fclose(img);
     free(buffer);
+    return 0;
 }
