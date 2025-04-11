@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
     FILE *card = fopen(argv[1], "r");
     if(card == NULL)
     {
-        free(card);
+        fclose(card);
         return 2;
     }
     // repeat until end of the file
@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
                 img =fopen(filename,"w");
                 if(img == NULL)
                 {
-                    free(img);
+                    fclose(img);
                     return 2;
                 }
                 fwrite(buffer,sizeof(uint8_t),512,img);
@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
                 img = fopen(filename, "w");
                 if(img == NULL)
                 {
-                    free(img);
+                    fclose(img);
                     return 2;
                 }
                 fwrite(buffer,sizeof(uint8_t),512,img);
