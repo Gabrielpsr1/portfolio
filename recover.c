@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
             // if it is the first jpeg 001...
             if (file_count == 0)
             {
-                sprintf(filename,"%03i.jpeg", file_count);
+                sprintf(filename,"%03i.jpg", file_count);
                 img =fopen(filename,"w");
                 if(img == NULL)
                 {
@@ -45,7 +45,7 @@ int main(int argc, char *argv[])
             {
                 fclose(img);
                 file_count++;
-                sprintf(filename,"%03i.jpeg", file_count);
+                sprintf(filename,"%03i.jpg", file_count);
                 img = fopen(filename, "w");
                 if(img == NULL)
                 {
