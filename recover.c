@@ -13,6 +13,7 @@ int main(int argc, char *argv[])
     int file_count = 0;
     char filename[20];
     FILE *img;
+    uint8_t* buffer = malloc(512 * sizeof(uint8_t));
     // open the memory card file
     FILE *card = fopen(raw, "r");
     if(card == NULL)
@@ -21,7 +22,6 @@ int main(int argc, char *argv[])
     }
     // repeat until end of the file
     // read 512 bytes into a buffer
-    uint8_t buffer[512];
     while (fread(buffer, sizeof(uint8_t), 512, card) == 512)
     {
         // if it starts a jpeg
@@ -54,4 +54,5 @@ int main(int argc, char *argv[])
     }
     // close
     fclose(img);
+    free(buffer);
 }
