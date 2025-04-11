@@ -33,6 +33,10 @@ int main(int argc, char *argv[])
             {
                 sprintf(filename,"%03i.jpeg", file_count);
                 img =fopen(filename,"w");
+                if(img == NULL)
+                {
+                    return 2;
+                }
                 fwrite(buffer,sizeof(uint8_t),512,img);
                 file_count++;
             }
@@ -43,11 +47,15 @@ int main(int argc, char *argv[])
                 file_count++;
                 sprintf(filename,"%03i.jpeg", file_count);
                 img = fopen(filename, "w");
+                if(img == NULL)
+                {
+                    return 2;
+                }
                 fwrite(buffer,sizeof(uint8_t),512,img);
             }
         }
-        // else vontinue to read the file
-        else
+        // else continue to read the file
+        else if(file_count > 0)
         {
             fwrite(buffer,sizeof(uint8_t),512,img);
         }
