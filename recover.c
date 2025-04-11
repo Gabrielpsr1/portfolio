@@ -65,6 +65,7 @@ int main(int argc, char *argv[])
     }
     // close
     fclose(img);
+    fclose(card);
     free(buffer);
     return 0;
 }
