@@ -76,7 +76,7 @@ bool load(const char *dictionary)
         {
             if (n == NULL)
             fclose(file);
-                return false;
+            return false;
         }
 
         // copy str
@@ -100,6 +100,7 @@ bool load(const char *dictionary)
 
         word_count++;
     }
+
     fclose(file);
     return true;
 }
