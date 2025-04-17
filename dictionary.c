@@ -92,11 +92,11 @@ bool load(const char *dictionary)
         }
 
         // copy str
-        strcpy(n->word, buffer);
-        // for (int i = 0, j = strlen(buffer); i < j; i++)
-        // {
-        //     n->word[i] = toupper(buffer[i]);
-        // }
+        // strcpy(n->word, buffer);
+        for (int i = 0, j = strlen(buffer); i < j; i++)
+        {
+            n->word[i] = toupper(buffer[i]);
+        }
         n->next = NULL;
         hashk = hash(n->word);
 
