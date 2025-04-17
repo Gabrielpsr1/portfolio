@@ -21,8 +21,7 @@ const unsigned int N = 190801;
 // Hash table
 node *table[N];
 
-int x = 0;
-int *p = &x;
+int word_count = 0;
 
 // Returns true if word is in dictionary, else false
 bool check(const char *word)
@@ -31,6 +30,9 @@ bool check(const char *word)
     node *n = malloc(sizeof(node));
 
     // if its on the first element of the list
+    if(table[key] == NULL)
+    return false;
+
     if (strcasecmp(table[key]->word, word) == 0)
     {
         return true;
@@ -59,7 +61,7 @@ unsigned int hash(const char *word)
 {
     long long unsigned int key = 0;
     // TODO: Improve this hash function
-    for (int i = 0; i != '\0'; i++)
+    for (int i = 0; word[i] != '\0'; i++)
     {
         key = key * 53 + word[i];
     }
@@ -90,10 +92,11 @@ bool load(const char *dictionary)
         }
 
         // copy str
-        for (int i = 0, j = strlen(buffer); i < j; i++)
-        {
-            n->word[i] = toupper(buffer[i]);
-        }
+        strcpy(n->word, buffer);
+        // for (int i = 0, j = strlen(buffer); i < j; i++)
+        // {
+        //     n->word[i] = toupper(buffer[i]);
+        // }
         n->next = NULL;
         hashk = hash(n->word);
 
@@ -109,7 +112,7 @@ bool load(const char *dictionary)
             table[hashk] = n;
         }
 
-        (*p)++;
+        word_count++;
     }
     return true;
 }
@@ -117,7 +120,7 @@ bool load(const char *dictionary)
 // Returns number of words in dictionary if loaded, else 0 if not yet loaded
 unsigned int size(void)
 {
-    return *p;
+    return word_count;
 }
 
 // Unloads dictionary from memory, returning true if successful, else false
@@ -135,5 +138,5 @@ bool unload(void)
         }
     }
 
-    return false;
+    return true;
 }
