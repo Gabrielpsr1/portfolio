@@ -26,34 +26,7 @@ int word_count = 0;
 // Returns true if word is in dictionary, else false
 bool check(const char *word)
 {
-    // unsigned int key = hash(word);
-    // node *n = malloc(sizeof(node));
 
-    // // if its on the first element of the list
-    // if(table[key] == NULL)
-    // return false;
-
-    // if (strcasecmp(table[key]->word, word) == 0)
-    // {
-    //     return true;
-    // }
-    // else if (table[key] == NULL)
-    // {
-    //     return false;
-    // }
-    // else
-    // {
-    //     n = table[key]->next;
-    //     while (n != NULL)
-    //     {
-    //         if (strcasecmp(n->word, word) == 0)
-    //             return true;
-
-    //         else
-    //             n = n->next;
-    //     }
-    // }
-    // return false;
     unsigned int key = hash(word);
     node *cursor = table[key];
 
@@ -77,7 +50,7 @@ unsigned int hash(const char *word)
     // TODO: Improve this hash function
     for (int i = 0; word[i] != '\0'; i++)
     {
-        key = key * 53 + word[i];
+        key = key * 53 + toupper(word[i]);
     }
     return key % N;
 }
@@ -107,10 +80,6 @@ bool load(const char *dictionary)
 
         // copy str
         // int len = strlen(buffer);
-        for (int i = 0; i != '\0'; i++)
-        {
-            buffer[i] = toupper(buffer[i]);
-        }
         strcpy(n->word, buffer);
 
         n->next = NULL;
