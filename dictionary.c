@@ -93,8 +93,8 @@ bool load(const char *dictionary)
 
         // copy str
         // strcpy(n->word, buffer);
-        int len = strlen(buffer);
-        for (int i = 0; i < len; i++)
+        // int len = strlen(buffer);
+        for (int i = 0; i != '\0'; i++)
         {
             n->word[i] = toupper(buffer[i]);
         }
