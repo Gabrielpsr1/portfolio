@@ -75,7 +75,7 @@ bool load(const char *dictionary)
         n = malloc(sizeof(node));
         {
             if (n == NULL)
-            fclose(file);
+            // fclose(file);
             return false;
         }
 
@@ -101,7 +101,7 @@ bool load(const char *dictionary)
         word_count++;
     }
 
-    fclose(file);
+    // fclose(file);
     return true;
 }
 
