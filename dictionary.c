@@ -41,8 +41,6 @@ bool check(const char *word)
     return false;
 }
 
-
-
 // Hashes word to a number
 unsigned int hash(const char *word)
 {
@@ -75,8 +73,8 @@ bool load(const char *dictionary)
         n = malloc(sizeof(node));
         {
             if (n == NULL)
-            // fclose(file);
-            return false;
+                // fclose(file);
+                return false;
         }
 
         // copy str
