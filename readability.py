@@ -8,28 +8,30 @@ def printf(index):
 
 # count words
 
+
 def words(string):
     words_count = 1
     for i in range(len(string)):
         if string[i] == " ":
-           words_count += 1
+            words_count += 1
     return words_count
 
 # count letters
+
 
 def letters(string):
     letters_count = 0
     for i in range(len(string)):
         if string[i].isalpha():
-           letters_count += 1
+            letters_count += 1
     return letters_count
 
 
 def sentences(string):
     sentences_count = 0
     for i in range(len(string)):
-        if string[i] in ('.', '!','?'):
-           sentences_count += 1
+        if string[i] in ('.', '!', '?'):
+            sentences_count += 1
     return sentences_count
 
 
