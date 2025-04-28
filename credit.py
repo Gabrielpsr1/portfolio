@@ -28,7 +28,7 @@ def flag(cardnumber):
     # amer
     if str(cardnumber)[:2] in ("34", "37"):
         return "AMEX"
-    elif str(cardnumber)[:2] in range("51", "52","53","54","55"):
+    elif str(cardnumber)[:2] in ("51", "52","53","54","55"):
         return "MASTERCARD"
     else:
         return "VISA"
