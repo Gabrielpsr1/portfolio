@@ -9,13 +9,13 @@ def valid(cardnumber):
     count = 0
     if lenght not in (13, 15, 16):
         return False
-    for i in range(lenght - 1, -1, -2):
+    for i in range(lenght - 2, -1, -2):
         if int(str(cardnumber)[i])*2 > 9:
             count += int(str(cardnumber)[i])*2 - 9
         else:
             count += int(str(cardnumber)[i])*2
 
-    for i in range(lenght, -1, -2):
+    for i in range(lenght - 1, -1, -2):
         count += int(str(cardnumber)[i])
 
     if count % 10 == 0:
@@ -36,9 +36,8 @@ def flag(cardnumber):
         return "INVALID"
 
 
-if valid(card) == True:
+if valid(card):
     print(f"{flag(card)}")
 if valid(card) == False:
     print("INVALID")
-else:
-    print("valid")
+
