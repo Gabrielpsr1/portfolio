@@ -36,7 +36,7 @@ def flag(cardnumber):
         return "INVALID"
 
 
-if valid(card):
+if valid(card) == True:
     print(f"{flag(card)}")
 else:
     print("INVALID")
