@@ -1,5 +1,5 @@
 def printf(index)
-   if index < 1:
+    if index < 1:
         print("Before Grade 1")
     elif index > 16:
         print("Grade 16+")
@@ -9,7 +9,7 @@ def printf(index)
 # count words
 
 def words(string)
-   words_count = 1
+    words_count = 1
     for i in range(len(string)):
         if string[i] == " "
            words_count += 1
@@ -18,7 +18,7 @@ def words(string)
 # count letters
 
 def letters(string)
-   letters_count = 0
+    letters_count = 0
     for i in range(len(string)):
         if string[i].isalpha()
            letters_count += 1
@@ -26,7 +26,7 @@ def letters(string)
 
 
 def sentences(string)
-   sentences_count = 0
+    sentences_count = 0
     for i in range(len(string))
         if string[i] in ('.', '!','?')
            sentences_count += 1
