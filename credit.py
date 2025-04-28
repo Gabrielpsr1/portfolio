@@ -5,8 +5,7 @@ card = get_int("Card number: ")
 
 
 def valid(cardnumber):
-    cardstr = str(card)
-    lenght = len(cardstr)
+    lenght = len(str(cardnumber))
     count = 0
     if lenght not in (13, 15, 16):
         return False
@@ -27,10 +26,9 @@ def valid(cardnumber):
 
 def flag(cardnumber):
     # amer
-    cardstr = str(card)
-    if cardstr[:2] in ("34", "37"):
+    if str(cardnumber)[:2] in ("34", "37"):
         return "AMEX"
-    elif cardstr[:2] in range("51", "55", "1"):
+    elif str(cardnumber)[:2] in range("51", "52","53","54","55"):
         return "MASTERCARD"
     else:
         return "VISA"
