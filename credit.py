@@ -30,7 +30,7 @@ def flag(cardnumber):
         return "AMEX"
     elif 51 <= int(str(cardnumber)[:2]) <= 55:
         return "MASTERCARD"
-    elif 40 <= int(str(cardnumber)[:2]) <= 49:
+    elif 40 <= int(str(cardnumber)[:2]) <= 49 and len(str(cardnumber)) in (13,16):
         return "VISA"
     else:
         return "INVALID"
