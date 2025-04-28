@@ -10,13 +10,13 @@ def valid(cardnumber):
     if lenght not in (13, 15, 16):
         return False
     for i in range(lenght - 1, -1, -2):
-        if i * 2 > 9:
+        if int(str(cardnumber)[i])*2 > 9:
             count += int(str(cardnumber)[i])*2 - 9
         else:
             count += int(str(cardnumber)[i])*2
 
     for i in range(lenght, -1, -2):
-        count += i
+        count += int(str(cardnumber)[i])*2
 
     if count % 10 == 0:
         return True
