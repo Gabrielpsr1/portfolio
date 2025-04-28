@@ -16,27 +16,27 @@ def valid(cardnumber):
         else:
             count += i*2
 
-    for i in range(lenght, 0,2):
-       count += i
+    for i in range(lenght, 0, 2):
+        count += i
 
     if count % 10 == 0:
-       return True
+        return True
     else:
-       return False
+        return False
 
 
 def flag(cardnumber):
-   #amer
-   if cardnumber / 10**13 in (34,37):
-      return "AMEX"
-   elif cardnumber / 10**14 in range(51,55,1):
-      return "MASTERCARD"
-   else:
-      return "VISA"
+    # amer
+    cardstr = str(card)
+    if cardstr[:2] in ("34", "37"):
+        return "AMEX"
+    elif cardstr[:2] in range("51", "55", "1"):
+        return "MASTERCARD"
+    else:
+        return "VISA"
 
 
 if valid(card):
-   print(f"{flag(card)}")
+    print(f"{flag(card)}")
 else:
-   print("INVALID")
-
+    print("INVALID")
