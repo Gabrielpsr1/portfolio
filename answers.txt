@@ -1,4 +1,4 @@
-SELECT AVG(energy AND valence AND danceability) FROM songs ;
+pretty boring, people that like the top 100 on spotify probably are NPCs;
 
-Maybe using a different type of average,using the hours listing each music as a "weight";
+Maybe using a different type of average,using the hours listing each music as a "weight"  //I know that this thing have a name,but english is my second language,so I'm not sure what is it ;
 
