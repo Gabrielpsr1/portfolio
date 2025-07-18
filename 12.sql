@@ -1,4 +1,5 @@
 SELECT title FROM movies
 WHERE id IN (SELECT movie_id FROM stars
-WHERE person_id IN (SELECT id FROM people WHERE name = "Bradley Cooper") AND (SELECT id FROM people WHERE name = "Jennifer Lawrence"))
+WHERE person_id IN (SELECT id FROM people WHERE name = "Bradley Cooper")) AND (SELECT movie_id FROM stars
+WHERE person_id IN (SELECT id FROM people WHERE name = "Jennifer Lawrence"))
 ORDER BY title;
