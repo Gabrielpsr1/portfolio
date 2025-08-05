@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+        <link href="styles.css" rel="stylesheet">
+        <title>Trivia!</title>
+        <script>
+            // TODO: Add code to check answers to questions
+            document.addEventListener('DOMContentLoaded', function() {
+                let correct = document.querySelector('.correct');
+                correct.addEventListener('click', function() {
+                    resetButtonColors();
+                    correct.style.background = 'rgb(0,255,0)';
+                    document.querySelector('#feedback1').innerHTML = 'Correct';
+                });
+
+
+                let incorrects = document.querySelectorAll('.incorrect')
+                for (let i = 0; i < incorrects.length; i++) {
+                    incorrects[i].addEventListener('click', function() {
+                        resetButtonColors();
+                        incorrects[i].style.background = 'rgb(255,0,0)';
+                        document.querySelector('#feedback1').innerHTML = 'Incorrect';
+
+                    });
+                }
+
+                const form = document.querySelector('form');
+                form.addEventListener('submit', function(event) {
+                    event.preventDefault();
+
+                    let answer = "the L person";
+                    let response = document.querySelector('#response').value;
+                    if (answer == response) {
+                        document.querySelector('#response').style.background = 'rgb(0,255,0)';
+                        document.querySelector('#feedback2').innerHTML = 'Correct';
+                    } else {
+                        document.querySelector('#response').style.background = 'rgb(255,0,0)';
+                        document.querySelector('#feedback2').innerHTML = 'Incorrect';
+                    }
+
+
+                });
+
+                function resetButtonColors() {
+                    let allButtons = document.querySelectorAll('.correct, .incorrect');
+                    allButtons.forEach(button => {
+                        button.style.background = '';
+                    });
+                }
+            });
+        </script>
+    </head>
+
+    <body>
+        <div class="header">
+            <h1>Trivia!</h1>
+        </div>
+
+        <div class="container">
+            <div class="section">
+                <h2>Part 1: Multiple Choice </h2>
+                <hr>
+                <!-- TODO: Add multiple choice question here -->
+                <h3>WHAT IS THE BIGGEST/BEST/MOST AURA fictional HERO in the world??</h3>
+                <hr>
+
+                <button type="button" class="incorrect">superman(yeah,he's cool)</button>
+                <button type="button" class="correct">GIGACHAD BATMAN THE GOAT</button>
+                <button type="button" class="incorrect">Spider man(he's all right)</button>
+                <p id="feedback1"></p>
+            </div>
+
+            <div class="section">
+                <h2>Part 2: Free Response</h2>
+                <hr>
+                <form>
+                    <h3>WHAT I AM THINKING ABOUT RIGHT NOW?</h3>
+                    <input name="response" id="response" type="text" placeholder="...">
+                    <input type="submit">
+                    <p id="feedback2"></p>
+                </form>
+                <!-- TODO: Add free response question here -->
+            </div>
+        </div>
+    </body>
+
+</html>
