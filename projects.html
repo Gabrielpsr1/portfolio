@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <link href="styles.css" rel="stylesheet">
+        <title>My Projects</title>
+    </head>
+    <body class="bg-dark text-white text-center p-5">
+
+        <!-- Offcanvas menu button -->
+        <button class="position-absolute top-0 start-0 m-3 border-0 bg-transparent text-white" data-bs-toggle="offcanvas" data-bs-target="#sideMenu" aria-controls="sideMenu">
+            ☰ Menu
+        </button>
+
+         <div class="offcanvas offcanvas-start bg-dark text-white" tabindex="-1" id="sideMenu" aria-labelledby="sideMenuLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="sideMenuLabel">Navigation</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <ul class="list-unstyled">
+                    <li><a class="btn btn-outline-light w-100 mb-2" href="index.html">Homepage</a></li>
+                    <li><a class="btn btn-outline-light w-100 mb-2" href="https://cs50.harvard.edu" target="_blank">CS50 Website</a></li>
+                    <li><a class="btn btn-outline-light w-100 mb-2" href="https://github.com/Gabrielpsr1" target="_blank">My GitHub</a></li>
+                    <li><a class="btn btn-outline-light w-100 mb-2" href="projects.html">My Projects</a></li>
+                    <li><a class="btn btn-outline-light w-100 mb-2" href="about.html">More About Me</a></li>
+                    <li><a class="btn btn-outline-light w-100 mb-2" href="contact.html">Contact Me</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Main content title -->
+        <div class="container my-5">
+            <h1 class="display-5 border-bottom pb-3 mb-4 text-white">My Projects 🛠️</h1>
+        </div>
+
+        <!-- Project 1 Section -->
+        <div class="container my-5">
+            <div class="bg-secondary text-white p-5 rounded shadow-lg">
+                <h2 class="border-bottom pb-3 mb-4">CS50's Tideman</h2>
+                <p class="fs-5 text-white-50">
+                    <br>
+                    A C program that implements the Tideman ranked-choice voting algorithm. Voters rank candidates in order of preference, and the program calculates the winner by constructing a directed graph of candidate preferences, avoiding cycles. The goal is to ensure that the most preferred candidate wins fairly, even in complex voting scenarios.
+
+                    Key concepts used:
+
+                    Graph theory and cycle detection
+
+                    Sorting algorithms to order pairs of candidates
+
+                    2D arrays and recursion
+
+                    Real-world application of election systems</p>
+                <div class="mt-4">
+                    <a href="https://github.com/me50/Gabrielpsr1/blob/cs50/problems/2025/x/tideman/tideman.c" class="btn btn-outline-light me-2" target="_blank">View on GitHub</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Project 2 Section -->
+        <div class="container my-5">
+            <div class="bg-secondary text-white p-5 rounded shadow-lg">
+                <h2 class="border-bottom pb-3 mb-4">CS50's Dictionary</h2>
+                <p class="fs-5 text-white-50">
+                    <br>
+                    A C program that implements a spell checker using a hash table to store words from a dictionary file. The program loads a large dictionary into memory, then checks another text file for misspelled words by comparing each word against the hash table. Efficient memory management and file I/O operations are used throughout the project. This project emphasizes:
+
+                    Data structures: Hash tables and linked lists
+
+                    File handling and parsing text input
+
+                    Custom hash functions and dictionary loading/unloading
+
+                    Performance benchmarking on large datasets
+                </p>
+                <div class="mt-4">
+                    <a href="https://github.com/me50/Gabrielpsr1/blob/cs50/problems/2025/x/speller/dictionary.c" class="btn btn-outline-light me-2" target="_blank">View on GitHub</a>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Add more project sections as needed -->
+        <!-- Just copy and paste a "Project Section" div and update its content -->
+
+        <!-- Bootstrap JS -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    </body>
+</html>

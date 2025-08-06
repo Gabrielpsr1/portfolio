@@ -1,0 +1,35 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #2F2828;
+    text-align: center;
+    padding: 40px;
+}
+
+
+p {
+    font-size: 18px;
+}
+
+img {
+    border-radius: 100px;
+    margin-bottom: 20px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+a {
+    color: #e76f51;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+#links {
+            display: none; /* Hidden by default */
+            margin-top: 30px;
+        }

@@ -1,0 +1,24 @@
+HTML Tags Used:
+1.  <html>: The root element of an HTML page.
+2.  <head>: Contains meta-information about the document, such as its title.
+3.  <link>: Links the document to an external resource, like a CSS stylesheet.
+4.  <script>: Embeds or references a script.
+5.  <body>: Contains all the visible content of the webpage.
+6.  <button>: Creates a clickable button.
+7.  <div>: A container element for other HTML elements.
+8.  <h1>: Defines the most important heading on the page.
+9.  <h2>: Defines a subheading.
+10. <p>: Defines a paragraph of text.
+
+CSS Properties Used:
+1.  background-color: Sets the background color of an element.
+2.  color: Sets the color of the text.
+3.  text-align: Specifies the horizontal alignment of text.
+4.  border-bottom: A shorthand property for setting all the properties of an element's bottom border.
+5.  margin: A shorthand property for setting the space around an element.
+
+JavaScript:
+I used JavaScript to enable the off-canvas sidebar functionality provided by the Bootstrap library, which allows for a responsive and space-saving navigation menu.
+
+Bootstrap:
+I chose to use Bootstrap to apply a consistent, modern, and responsive design across all pages with a minimal amount of custom CSS, leveraging its pre-built components and utility classes for layout, styling, and navigation.
