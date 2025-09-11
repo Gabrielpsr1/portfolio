@@ -116,14 +116,13 @@ def buy():
         return render_template("buy.html")
 
 
-
 @app.route("/history")
 @login_required
 def history():
     """Show history of transactions"""
     history = db.execute("SELECT * FROM history WHERE id = ?", session["user_id"])
 
-    return render_template("history.html", history=history,usd=usd)
+    return render_template("history.html", history=history, usd=usd)
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -184,8 +183,8 @@ def quote():
     if request.method == "POST":
         stock = lookup(request.form.get("symbol"))
         if not stock:
-            return apology("invalid symbol.",400)
-        return render_template("quoted.html", stock=stock,usd=usd)
+            return apology("invalid symbol.", 400)
+        return render_template("quoted.html", stock=stock, usd=usd)
     else:
         return render_template("quote.html")
 
@@ -250,7 +249,8 @@ def sell():
 
         # atualiza carteira
         if owned_shares == shares:
-            db.execute("DELETE FROM stocks WHERE user_id = ? AND stock = ?", session["user_id"], stock["symbol"])
+            db.execute("DELETE FROM stocks WHERE user_id = ? AND stock = ?",
+                       session["user_id"], stock["symbol"])
         else:
             db.execute("UPDATE stocks SET shares = shares - ? WHERE user_id = ? AND stock = ?",
                        shares, session["user_id"], stock["symbol"])
