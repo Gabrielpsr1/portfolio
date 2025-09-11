@@ -54,7 +54,7 @@ def buy():
     if request.method == "POST":
 
         shares = int(request.form.get("shares"))
-        if !(isinstance(shares, int) and n > 0)
+        if not (isinstance(shares, int) and n > 0)
             return apology("pls, input an positive integer")
 
         stock = lookup(request.form.get("symbol"))
