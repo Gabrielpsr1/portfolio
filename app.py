@@ -54,7 +54,7 @@ def buy():
     if request.method == "POST":
 
         shares = int(request.form.get("shares"))
-        if shares < 0:
+        if !(isinstance(shares, int) and n > 0)
             return apology("pls, input an positive integer")
 
         stock = lookup(request.form.get("symbol"))
@@ -152,7 +152,7 @@ def quote():
     if request.method == "POST":
         stock = lookup(request.form.get("symbol"))
         if not stock:
-            return apology("invalid symbol.")
+            return apology("invalid symbol.",200)
         return render_template("quoted.html", stock=stock)
     else:
         return render_template("quote.html")
