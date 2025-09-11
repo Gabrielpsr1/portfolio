@@ -7,7 +7,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 from datetime import datetime
 
-from helpers import apology, login_required, lookup, usd ,make_stock_list
+from helpers import apology, login_required, lookup, usd, make_stock_list
 
 # Configure application
 app = Flask(__name__)
@@ -37,14 +37,14 @@ def after_request(response):
 @login_required
 def index():
     """Show portfolio of stocks"""
-    stocks = db.execute("SELECT stock,shares FROM stocks WHERE user_id=?",int(session["user_id"]))
+    stocks = db.execute("SELECT stock,shares FROM stocks WHERE user_id=?", int(session["user_id"]))
 
     stock_list = []
     name_list = []
 
-    make_stock_list(stock_list,name_list,stocks)
+    make_stock_list(stock_list, name_list, stocks)
 
-    return render_template("index.html",stocks=stock_list)
+    return render_template("index.html", stocks=stock_list)
 
 
 @app.route("/buy", methods=["GET", "POST"])
@@ -61,31 +61,37 @@ def buy():
         if not stock:
             return apology("invalid symbol.")
 
-        cash = int(db.execute("SELECT cash FROM users WHERE id = ? ", int(session["user_id"]))[0]["cash"])
+        cash = int(db.execute("SELECT cash FROM users WHERE id = ? ",
+                   int(session["user_id"]))[0]["cash"])
 
         transaction_type = "BUY"
 
         if int(stock["price"]) * shares < cash:
-            db.execute("UPDATE users SET cash = cash - ? WHERE id = ?",int(stock["price"]) * shares, session["user_id"])
-            db.execute("INSERT INTO history(id,stock,shares,time,type) VALUES (?,?,?,?,?)",session["user_id"],stock["symbol"],shares,datetime.now(),transaction_type)
-            if not db.execute("SELECT * FROM stocks WHERE user_id = ? AND stock = ?",session["user_id"],stock["symbol"]):
+            db.execute("UPDATE users SET cash = cash - ? WHERE id = ?",
+                       int(stock["price"]) * shares, session["user_id"])
+            db.execute("INSERT INTO history(id,stock,shares,time,type) VALUES (?,?,?,?,?)",
+                       session["user_id"], stock["symbol"], shares, datetime.now(), transaction_type)
+            if not db.execute("SELECT * FROM stocks WHERE user_id = ? AND stock = ?", session["user_id"], stock["symbol"]):
                 # no row, insert a new one
-                db.execute("INSERT INTO stocks(user_id, stock, shares) VALUES (?, ?, ?)",session["user_id"], stock["symbol"], shares)
+                db.execute("INSERT INTO stocks(user_id, stock, shares) VALUES (?, ?, ?)",
+                           session["user_id"], stock["symbol"], shares)
             else:
-                 db.execute("UPDATE stocks SET shares = shares + ? WHERE user_id = ? AND stock = ?",shares, session["user_id"], stock["symbol"])
+                db.execute("UPDATE stocks SET shares = shares + ? WHERE user_id = ? AND stock = ?",
+                           shares, session["user_id"], stock["symbol"])
         else:
             return apology("you don't have enough cash")
         return redirect("/")
     else:
         return render_template("buy.html")
 
+
 @app.route("/history")
 @login_required
 def history():
     """Show history of transactions"""
-    history = db.execute("SELECT * FROM history WHERE id = ?",session["user_id"])
+    history = db.execute("SELECT * FROM history WHERE id = ?", session["user_id"])
 
-    return render_template("history.html",history=history)
+    return render_template("history.html", history=history)
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -152,24 +158,23 @@ def quote():
         return render_template("quote.html")
 
 
-
 @app.route("/register", methods=["GET", "POST"])
 def register():
     """Register user"""
     if request.method == "POST":
-         # Ensure username was submitted
+        # Ensure username was submitted
         if not request.form.get("username"):
-            return apology("must provide username", 403)
+            return apology("must provide username", 400)
 
         # Ensure password was submitted
         elif not request.form.get("password") or request.form.get("password") != request.form.get("confirmation"):
-            return apology("must provide and confirm your password", 403)
+            return apology("must provide and confirm your password", 400)
 
         try:
-            db.execute("INSERT INTO users (username,hash) VALUES (?,?)",request.form.get("username"),
+            db.execute("INSERT INTO users (username,hash) VALUES (?,?)", request.form.get("username"),
                        generate_password_hash(request.form.get("password"), method='scrypt', salt_length=16))
         except:
-            return apology("This username is alredy being used", 403)
+            return apology("This username is alredy being used", 400)
 
         rows = db.execute(
             "SELECT * FROM users WHERE username = ?", request.form.get("username")
@@ -199,7 +204,8 @@ def sell():
         if not stock:
             return apology("invalid symbol.")
 
-        n_shares = db.execute("SELECT shares FROM stocks WHERE user_id = ? AND stock = ?", int(session["user_id"]), stock["symbol"].upper())
+        n_shares = db.execute("SELECT shares FROM stocks WHERE user_id = ? AND stock = ?", int(
+            session["user_id"]), stock["symbol"].upper())
         if not n_shares:
             return apology("you don't have these stocks.")
 
@@ -210,13 +216,17 @@ def sell():
         if int(n_shares[0]["shares"]) < shares:
             return apology("you don't have enough stocks.")
         elif int(n_shares[0]["shares"]) == shares:
-            db.execute("DELETE FROM stocks WHERE user_id = ? AND stock = ? " ,session["user_id"], stock["symbol"])
-            db.execute("INSERT INTO history(id,stock,shares,time,type) VALUES (?,?,?,?,?)",session["user_id"],stock["symbol"],shares,datetime.now(),transaction_type)
-            db.execute("UPDATE users SET cash = cash + ? WHERE id = ?",cash, session["user_id"])
+            db.execute("DELETE FROM stocks WHERE user_id = ? AND stock = ? ",
+                       session["user_id"], stock["symbol"])
+            db.execute("INSERT INTO history(id,stock,shares,time,type) VALUES (?,?,?,?,?)",
+                       session["user_id"], stock["symbol"], shares, datetime.now(), transaction_type)
+            db.execute("UPDATE users SET cash = cash + ? WHERE id = ?", cash, session["user_id"])
         else:
-            db.execute("UPDATE stocks SET shares = shares - ? WHERE user_id = ? AND stock = ?",shares, session["user_id"], stock["symbol"])
-            db.execute("INSERT INTO history(id,stock,shares,time,type) VALUES (?,?,?,?,?)",session["user_id"],stock["symbol"],shares,datetime.now(),transaction_type)
-            db.execute("UPDATE users SET cash = cash + ? WHERE id = ?",cash, session["user_id"])
+            db.execute("UPDATE stocks SET shares = shares - ? WHERE user_id = ? AND stock = ?",
+                       shares, session["user_id"], stock["symbol"])
+            db.execute("INSERT INTO history(id,stock,shares,time,type) VALUES (?,?,?,?,?)",
+                       session["user_id"], stock["symbol"], shares, datetime.now(), transaction_type)
+            db.execute("UPDATE users SET cash = cash + ? WHERE id = ?", cash, session["user_id"])
         return redirect("/")
     else:
         return render_template("sell.html")
@@ -229,16 +239,18 @@ def transfer():
         person = request.form.get("person")
         cash = float(request.form.get("cash"))
 
-        #current cash
-        c_cash = float(db.execute("SELECT cash FROM users WHERE id = ?",session["user_id"])[0]["cash"])
+        # current cash
+        c_cash = float(db.execute("SELECT cash FROM users WHERE id = ?",
+                       session["user_id"])[0]["cash"])
 
-        if(cash > c_cash):
+        if (cash > c_cash):
             return apology("you don't have enough cash")
 
-        if db.execute("SELECT username FROM users WHERE username = ?",person):
-            db.execute("UPDATE users SET cash = cash - ? WHERE id = ?",cash,session["user_id"])
-            db.execute("UPDATE users SET cash = cash + ? WHERE username = ?",cash,person)
-            db.execute("INSERT INTO history(id,stock,shares,time,type) VALUES (?,?,?,?,?)",session["user_id"],"Transfer",cash,datetime.now(),"TRANSFER")
+        if db.execute("SELECT username FROM users WHERE username = ?", person):
+            db.execute("UPDATE users SET cash = cash - ? WHERE id = ?", cash, session["user_id"])
+            db.execute("UPDATE users SET cash = cash + ? WHERE username = ?", cash, person)
+            db.execute("INSERT INTO history(id,stock,shares,time,type) VALUES (?,?,?,?,?)",
+                       session["user_id"], "Transfer", cash, datetime.now(), "TRANSFER")
         else:
             return apology("invalid name")
         return redirect("/")
