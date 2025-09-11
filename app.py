@@ -37,14 +37,30 @@ def after_request(response):
 @login_required
 def index():
     """Show portfolio of stocks"""
-    stocks = db.execute("SELECT stock,shares FROM stocks WHERE user_id=?", int(session["user_id"]))
 
-    stock_list = []
-    name_list = []
+    # pega ações do usuário
+    rows = db.execute("SELECT stock, shares FROM stocks WHERE user_id = ?", session["user_id"])
 
-    make_stock_list(stock_list, name_list, stocks)
+    holdings = []
+    total = 0
 
-    return render_template("index.html", stocks=stock_list)
+    for row in rows:
+        quote = lookup(row["stock"])
+        price = float(quote["price"])
+        value = price * row["shares"]
+        total += value
+        holdings.append({
+            "symbol": row["stock"],
+            "shares": row["shares"],
+            "price": usd(price),
+            "total": usd(value)
+        })
+
+    # pega o cash atual
+    cash = db.execute("SELECT cash FROM users WHERE id = ?", session["user_id"])[0]["cash"]
+    total += cash
+
+    return render_template("index.html", holdings=holdings, cash=usd(cash), total=usd(total))
 
 
 @app.route("/buy", methods=["GET", "POST"])
@@ -53,36 +69,52 @@ def buy():
     """Buy shares of stock"""
     if request.method == "POST":
 
-        shares = request.form.get("shares")
-        if not (isinstance(shares, int) and shares > 0):
-            return apology("pls, input an positive integer",400)
+        # valida número de ações
+        try:
+            shares = int(request.form.get("shares"))
+            if shares <= 0:
+                return apology("please input a positive integer", 400)
+        except:
+            return apology("please input a positive integer", 400)
 
+        # valida símbolo
         stock = lookup(request.form.get("symbol"))
         if not stock:
-            return apology("invalid symbol.",400)
+            return apology("invalid symbol", 400)
 
-        cash = usd(db.execute("SELECT cash FROM users WHERE id = ? ",
-                   int(session["user_id"]))[0]["cash"])
+        # pega dinheiro do usuário
+        cash = db.execute("SELECT cash FROM users WHERE id = ?", session["user_id"])[0]["cash"]
 
-        transaction_type = "BUY"
+        price = float(stock["price"])
+        total_cost = price * shares
 
-        if usd(stock["price"]) * shares < cash:
-            db.execute("UPDATE users SET cash = cash - ? WHERE id = ?",
-                       usd(stock["price"]) * shares, session["user_id"])
-            db.execute("INSERT INTO history(id,stock,shares,time,type) VALUES (?,?,?,?,?)",
-                       session["user_id"], stock["symbol"], shares, datetime.now(), transaction_type)
-            if not db.execute("SELECT * FROM stocks WHERE user_id = ? AND stock = ?", session["user_id"], stock["symbol"]):
-                # no row, insert a new one
-                db.execute("INSERT INTO stocks(user_id, stock, shares) VALUES (?, ?, ?)",
-                           session["user_id"], stock["symbol"], shares)
-            else:
-                db.execute("UPDATE stocks SET shares = shares + ? WHERE user_id = ? AND stock = ?",
-                           shares, session["user_id"], stock["symbol"])
+        # verifica se tem dinheiro suficiente
+        if total_cost > cash:
+            return apology("you don't have enough cash", 400)
+
+        # desconta o valor da compra
+        db.execute("UPDATE users SET cash = cash - ? WHERE id = ?", total_cost, session["user_id"])
+
+        # salva no histórico (note que history precisa ter coluna price)
+        db.execute("INSERT INTO history (user_id, stock, shares, price, time, type) VALUES (?, ?, ?, ?, ?, ?)",
+                   session["user_id"], stock["symbol"], shares, price, datetime.now(), "BUY")
+
+        # adiciona/atualiza ações do usuário
+        rows = db.execute("SELECT shares FROM stocks WHERE user_id = ? AND stock = ?",
+                          session["user_id"], stock["symbol"])
+
+        if len(rows) == 0:
+            db.execute("INSERT INTO stocks (user_id, stock, shares) VALUES (?, ?, ?)",
+                       session["user_id"], stock["symbol"], shares)
         else:
-            return apology("you don't have enough cash")
+            db.execute("UPDATE stocks SET shares = shares + ? WHERE user_id = ? AND stock = ?",
+                       shares, session["user_id"], stock["symbol"])
+
         return redirect("/")
+
     else:
         return render_template("buy.html")
+
 
 
 @app.route("/history")
