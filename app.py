@@ -61,14 +61,14 @@ def buy():
         if not stock:
             return apology("invalid symbol.",400)
 
-        cash = int(db.execute("SELECT cash FROM users WHERE id = ? ",
+        cash = usd(db.execute("SELECT cash FROM users WHERE id = ? ",
                    int(session["user_id"]))[0]["cash"])
 
         transaction_type = "BUY"
 
-        if int(stock["price"]) * shares < cash:
+        if usd(stock["price"]) * shares < cash:
             db.execute("UPDATE users SET cash = cash - ? WHERE id = ?",
-                       int(stock["price"]) * shares, session["user_id"])
+                       usd(stock["price"]) * shares, session["user_id"])
             db.execute("INSERT INTO history(id,stock,shares,time,type) VALUES (?,?,?,?,?)",
                        session["user_id"], stock["symbol"], shares, datetime.now(), transaction_type)
             if not db.execute("SELECT * FROM stocks WHERE user_id = ? AND stock = ?", session["user_id"], stock["symbol"]):
@@ -153,7 +153,7 @@ def quote():
         stock = lookup(request.form.get("symbol"))
         if not stock:
             return apology("invalid symbol.",400)
-        return render_template("quoted.html", stock=stock)
+        return render_template("quoted.html", stock=stock,usd=usd)
     else:
         return render_template("quote.html")
 
