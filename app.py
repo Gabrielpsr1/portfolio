@@ -256,7 +256,7 @@ def sell():
                        shares, session["user_id"], stock["symbol"])
 
         # adiciona no histórico
-        db.execute("INSERT INTO history (user_id, stock, shares, price, time, type) VALUES (?, ?, ?, ?, ?, ?)",
+        db.execute("INSERT INTO history (id, stock, shares, price, time, type) VALUES (?, ?, ?, ?, ?, ?)",
                    session["user_id"], stock["symbol"], shares, price, datetime.now(), "SELL")
 
         # atualiza saldo
