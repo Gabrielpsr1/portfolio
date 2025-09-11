@@ -53,13 +53,13 @@ def buy():
     """Buy shares of stock"""
     if request.method == "POST":
 
-        shares = int(request.form.get("shares"))
-        if not (isinstance(shares, int) and n > 0):
-            return apology("pls, input an positive integer")
+        shares = request.form.get("shares")
+        if not (isinstance(shares, int) and shares > 0):
+            return apology("pls, input an positive integer",400)
 
         stock = lookup(request.form.get("symbol"))
         if not stock:
-            return apology("invalid symbol.")
+            return apology("invalid symbol.",400)
 
         cash = int(db.execute("SELECT cash FROM users WHERE id = ? ",
                    int(session["user_id"]))[0]["cash"])
