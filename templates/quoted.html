@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    quoted
+{% endblock %}
+
+{% block main %}
+    <div class="d-flex justify-content-center">
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">name: {{ stock.name }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{ stock.symbol }}</h6>
+                <p class="card-text">Price: {{ stock.price }} $</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

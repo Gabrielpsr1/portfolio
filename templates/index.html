@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    quote
+{% endblock %}
+
+{% block main %}
+  <div class="container">
+   <div class="section">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>STOCKS</th>
+                            <th>SHARES</th>
+                            <th>CURRENT PRICE</th>
+                            <th>TOTAL VALUE</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                         {% for stock in stocks %}
+                         <tr>
+                            <td>{{ stock.name }}</td>
+                            <td>{{ stock.shares}}</td>
+                            <td>{{ stock.price}}</td>
+                            <td>{{ stock.total_value}}</td>
+                         </tr>
+                         {% endfor %}
+                    </tbody>
+                </table>
+    </div>
+   </div>
+{% endblock %}
