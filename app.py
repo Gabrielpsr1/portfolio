@@ -227,41 +227,46 @@ def sell():
     if request.method == "POST":
         try:
             shares = int(request.form.get("shares"))
-            if shares < 0:
-                return apology("pls, input an positive integer")
-        except ValueError:
-            return apology("pls,input a valid value")
+            if shares <= 0:
+                return apology("please input a positive integer")
+        except:
+            return apology("please input a valid value")
 
         stock = lookup(request.form.get("symbol"))
         if not stock:
             return apology("invalid symbol.")
 
-        n_shares = db.execute("SELECT shares FROM stocks WHERE user_id = ? AND stock = ?", int(
-            session["user_id"]), stock["symbol"].upper())
-        if not n_shares:
-            return apology("you don't have these stocks.")
+        rows = db.execute("SELECT shares FROM stocks WHERE user_id = ? AND stock = ?",
+                          session["user_id"], stock["symbol"].upper())
+        if not rows:
+            return apology("you don't own this stock.")
 
-        cash = int(n_shares[0]["shares"]) * stock["price"]
+        owned_shares = rows[0]["shares"]
+        if owned_shares < shares:
+            return apology("you don't have enough shares.")
 
-        transaction_type = "SELL"
+        price = float(stock["price"])
+        proceeds = shares * price
 
-        if int(n_shares[0]["shares"]) < shares:
-            return apology("you don't have enough stocks.")
-        elif int(n_shares[0]["shares"]) == shares:
-            db.execute("DELETE FROM stocks WHERE user_id = ? AND stock = ? ",
-                       session["user_id"], stock["symbol"])
-            db.execute("INSERT INTO history(id,stock,shares,time,type) VALUES (?,?,?,?,?)",
-                       session["user_id"], stock["symbol"], shares, datetime.now(), transaction_type)
-            db.execute("UPDATE users SET cash = cash + ? WHERE id = ?", cash, session["user_id"])
+        # atualiza carteira
+        if owned_shares == shares:
+            db.execute("DELETE FROM stocks WHERE user_id = ? AND stock = ?", session["user_id"], stock["symbol"])
         else:
             db.execute("UPDATE stocks SET shares = shares - ? WHERE user_id = ? AND stock = ?",
                        shares, session["user_id"], stock["symbol"])
-            db.execute("INSERT INTO history(id,stock,shares,time,type) VALUES (?,?,?,?,?)",
-                       session["user_id"], stock["symbol"], shares, datetime.now(), transaction_type)
-            db.execute("UPDATE users SET cash = cash + ? WHERE id = ?", cash, session["user_id"])
+
+        # adiciona no histórico
+        db.execute("INSERT INTO history (user_id, stock, shares, price, time, type) VALUES (?, ?, ?, ?, ?, ?)",
+                   session["user_id"], stock["symbol"], shares, price, datetime.now(), "SELL")
+
+        # atualiza saldo
+        db.execute("UPDATE users SET cash = cash + ? WHERE id = ?", proceeds, session["user_id"])
+
         return redirect("/")
     else:
-        return render_template("sell.html")
+        # passa as ações do user pro template do select
+        symbols = db.execute("SELECT stock FROM stocks WHERE user_id = ?", session["user_id"])
+        return render_template("sell.html", symbols=[row["stock"] for row in symbols])
 
 
 @app.route("/transfer", methods=["GET", "POST"])
