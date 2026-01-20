@@ -109,7 +109,7 @@ def shortest_path(source, target):
     #find the first neighbors and add to the frontier
     for neighbor in neighbors_for_person(source):
         if neighbor[1] == target:
-            return neighbor
+            return [neighbor]
         nghbr = Node(neighbor,source)
         frontier.add(nghbr)
 
