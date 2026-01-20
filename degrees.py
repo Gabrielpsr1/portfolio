@@ -133,8 +133,8 @@ def shortest_path(source, target):
                 path.reverse()
                 return path
             nghbr = Node(neighbor,node)
-            if not explored.contains_state(nghbr.state) and not frontier.contains_state(nghbr.state):
-                frontier.add(nghbr)
+            
+            frontier.add(nghbr)
 
         
 
