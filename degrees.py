@@ -117,9 +117,9 @@ def shortest_path(source, target):
         if frontier.empty():
             return None
         node = frontier.remove()
-        explored.add(node.state)
         if explored.contains_state(node.state):
             continue
+        explored.add(node.state)
         #find the neighbors and add to the frontier
         for neighbor in neighbors_for_person(node.state[1]):
             if neighbor[1] == target:
