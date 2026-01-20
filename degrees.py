@@ -101,7 +101,8 @@ def shortest_path(source, target):
     If no possible path, returns None.
     """
 
-    #TODO
+    if source == target:
+        return []
     frontier = QueueFrontier()
     explored = ExploredNodes()
     #step one
@@ -111,7 +112,7 @@ def shortest_path(source, target):
             return neighbor
         nghbr = Node(neighbor,source)
         frontier.add(nghbr)
-    
+
     while True:
         if frontier.empty():
             return None
