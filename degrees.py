@@ -105,12 +105,12 @@ def shortest_path(source, target):
         return []
     frontier = QueueFrontier()
     explored = ExploredNodes()
-    #step one
-    #find the first neighbors and add to the frontier
+    # step one
+    # find the first neighbors and add to the frontier
     for neighbor in neighbors_for_person(source):
         if neighbor[1] == target:
             return [neighbor]
-        nghbr = Node(neighbor,source)
+        nghbr = Node(neighbor, source)
         frontier.add(nghbr)
 
     while True:
@@ -120,10 +120,10 @@ def shortest_path(source, target):
         if explored.contains_state(node.state):
             continue
         explored.add(node.state)
-        #find the neighbors and add to the frontier
+        # find the neighbors and add to the frontier
         for neighbor in neighbors_for_person(node.state[1]):
             if neighbor[1] == target:
-                nghbr = Node(neighbor,node)
+                nghbr = Node(neighbor, node)
                 path = []
                 while True:
                     path.append(nghbr.state)
@@ -132,11 +132,9 @@ def shortest_path(source, target):
                     nghbr = nghbr.parent
                 path.reverse()
                 return path
-            nghbr = Node(neighbor,node)
+            nghbr = Node(neighbor, node)
             
             frontier.add(nghbr)
-
-        
 
 
 def person_id_for_name(name):
