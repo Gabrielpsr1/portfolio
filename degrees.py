@@ -16,11 +16,11 @@ class ExploredNodes():
     def __init__(self):
         self.ExploredNodes = []
     
-    def add(self, node):
-        self.ExploredNodes.append(node)
+    def add(self, state):
+        self.ExploredNodes.append(state)
 
     def contains_state(self, state):
-        return any(node.state == state for node in self.ExploredNodes)
+        return state in self.ExploredNodes
 
 def load_data(directory):
     """
