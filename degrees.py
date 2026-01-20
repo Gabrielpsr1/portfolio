@@ -117,7 +117,8 @@ def shortest_path(source, target):
         if frontier.empty():
             return None
         node = frontier.remove()
-        if explored.contains_state(node):
+        explored.add(node.state)
+        if explored.contains_state(node.state):
             continue
         #find the neighbors and add to the frontier
         for neighbor in neighbors_for_person(node.state[1]):
@@ -132,7 +133,9 @@ def shortest_path(source, target):
                 path.reverse()
                 return path
             nghbr = Node(neighbor,node)
-            frontier.add(nghbr)
+            if not explored.contains_state(nghbr.state) and not frontier.contains_state(nghbr.state):
+                frontier.add(nghbr)
+
         
 
 
