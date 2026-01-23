@@ -55,11 +55,13 @@ def result(board, action):
     """
     board2 = copy.deepcopy(board)
     for i, line in enumerate(board2):
-            
-        for j, action in enumerate(line):
+        if i != action[0]:
+            continue
+        for j, cell in enumerate(line):
             if (i,j) == action:
-                board2[i][j] = player(board2) 
-    return board2
+                board2[i][j] = player(board2)
+                return board2
+    
 
 
 def winner(board):
@@ -74,7 +76,7 @@ def winner(board):
     for j in range(3):
         if board[0][j] == board[1][j] == board[2][j] and (board[0][j] != EMPTY):
             return board[0][j]
-    # check vertically
+    # check diagonally
     if board[1][1] == EMPTY:
         return None
     elif board[0][0] == board[1][1] == board[2][2] and board[0][0] != EMPTY:
@@ -87,8 +89,9 @@ def terminal(board):
     """
     Returns True if game is over, False otherwise.
     """
-    if winner(board) == None:
-        return False
+    w = winner(board)
+    if w != None:
+        return True
     for line in board:
         if EMPTY in line:
             return False
@@ -106,23 +109,49 @@ def utility(board):
     else:
         return 0
 
+def future_ultility(board):
+    if terminal(board):
+        return utility(board)
+    if player(board) == X:
+        return max_value(board)
+    else:
+        return min_value(board) 
+
 
 def minimax(board):
     """
     Returns the optimal action for the current player on the board.
     """
+    if player(board) == X:
+        max = max_value(board)
+        for action in actions(board):
+            if min_value(result(board,action)) == max:
+                return action
+    else:
+        min = min_value(board)
+        for action in actions(board):
+            if max_value(result(board,action)) == min:
+                return action
+      
+  
+
+
+def max_value(board):
     if terminal(board):
         return utility(board)
-    
-    if player(board) == X:
-        v = math.inf
-    else:
-        v = -math.inf
-
+    v = -math.inf
+   
     for action in actions(board):
-        if player(board) == X:
-            v = max(v,minimax(result(board,action)))
-        else:
-            v = min(v,minimax(result(board,action)))
+        v = max(v,min_value(result(board,action)))
+
+    return v
+
+def min_value(board):
+    if terminal(board):
+        return utility(board)
+    v = math.inf
+   
+    for action in actions(board):
+        v = min(v,max_value(result(board,action)))
 
     return v
