@@ -46,8 +46,9 @@ def actions(board):
     for i, line in enumerate(board):
         for j, action in enumerate(line):
             if action == EMPTY:
-                possible_actions.add((i,j)) 
+                possible_actions.add((i, j)) 
     return possible_actions
+
 
 def result(board, action):
     """
@@ -60,18 +61,17 @@ def result(board, action):
         if i != action[0]:
             continue
         for j, cell in enumerate(line):
-            if (i,j) == action:
+            if (i, j) == action:
                 board2[i][j] = player(board2)
                 return board2
     
-
 
 def winner(board):
     """
     Returns the winner of the game, if there is one.
     """
     # check horizontally
-    for i,line in enumerate(board):
+    for i, line in enumerate(board):
         if line[0] == line[1] == line[2] and (line[0] != EMPTY):
             return line[0]
     # check vertically
@@ -86,6 +86,7 @@ def winner(board):
     elif board[0][2] == board[1][1] == board[2][0] and board[1][1] != EMPTY:
         return board[1][1]
     return None
+
 
 def terminal(board):
     """
@@ -111,6 +112,7 @@ def utility(board):
     else:
         return 0
 
+
 def minimax(board):
     """
     Returns the optimal action for the current player on the board.
@@ -120,16 +122,14 @@ def minimax(board):
     if player(board) == X:
         max = max_value(board)
         for action in actions(board):
-            if min_value(result(board,action)) == max:
+            if min_value(result(board, action)) == max:
                 return action
     else:
         min = min_value(board)
         for action in actions(board):
-            if max_value(result(board,action)) == min:
+            if max_value(result(board, action)) == min:
                 return action
       
-  
-
 
 def max_value(board):
     if terminal(board):
@@ -137,9 +137,10 @@ def max_value(board):
     v = -math.inf
    
     for action in actions(board):
-        v = max(v,min_value(result(board,action)))
+        v = max(v, min_value(result(board, action)))
 
     return v
+
 
 def min_value(board):
     if terminal(board):
@@ -147,6 +148,6 @@ def min_value(board):
     v = math.inf
    
     for action in actions(board):
-        v = min(v,max_value(result(board,action)))
+        v = min(v, max_value(result(board, action)))
 
     return v
