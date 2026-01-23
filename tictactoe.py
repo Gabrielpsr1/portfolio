@@ -53,6 +53,8 @@ def result(board, action):
     """
     Returns the board that results from making move (i, j) on the board.
     """
+    if action[0] < 0 or action[0] > 2 or action[1] < 0 or action[1] > 2 or board[action[0]][action[1]] != EMPTY:
+        raise Exception
     board2 = copy.deepcopy(board)
     for i, line in enumerate(board2):
         if i != action[0]:
@@ -109,19 +111,12 @@ def utility(board):
     else:
         return 0
 
-def future_ultility(board):
-    if terminal(board):
-        return utility(board)
-    if player(board) == X:
-        return max_value(board)
-    else:
-        return min_value(board) 
-
-
 def minimax(board):
     """
     Returns the optimal action for the current player on the board.
     """
+    if terminal(board):
+        return None
     if player(board) == X:
         max = max_value(board)
         for action in actions(board):
