@@ -52,8 +52,7 @@ knowledge3 = And(
     # A said:
     Or(AKnight, AKnave),
     # B said:
-    Implication(BKnave, AKnave),
-    Biconditional(BKnight, AKnave),
+    BKnave,
     # B said:
     Biconditional(BKnight, CKnave),
     Biconditional(BKnave,CKnight),
