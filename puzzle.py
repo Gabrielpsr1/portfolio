@@ -46,7 +46,7 @@ knowledge2 = And(
 # B says "C is a knave."
 # C says "A is a knight."
 sentence0 = Or(And(AKnight,Not(AKnave)), And(AKnave, Not(AKnight))) # im a knight
-sentence1 = And(Implication(AKnight, AKnave), Implication(AKnave, Not(AKnave)))  # im a knave
+sentence1 = Or(And(AKnight, AKnave), And(AKnave, Not(AKnave)))  # im a knave
 knowledge3 = And(
     # Or(And(AKnight,Not(AKnave)), And(AKnave, Not(AKnight))),
     # Or(And(BKnight,Not(BKnave)), And(BKnave, Not(BKnight))),
@@ -59,8 +59,8 @@ knowledge3 = And(
     Not(And(BKnight, BKnave)),
     Not(And(CKnight, CKnave)),
     # B said:
-    Implication(BKnight, sentence0),
-    Implication(BKnave, sentence1),
+    Implication(BKnight, sentence1),
+    Implication(BKnave, sentence0),
     # B said:
     Biconditional(BKnight, CKnave),
     Biconditional(BKnave, CKnight),
