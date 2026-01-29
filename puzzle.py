@@ -12,8 +12,8 @@ CKnave = Symbol("C is a Knave")
 # Puzzle 0
 # A says "I am both a knight and a knave."
 knowledge0 = And(
-    Or(And(AKnight,Not(AKnave)), And(AKnave, Not(AKnight))),
-    Implication(AKnight, And(AKnight,AKnave))
+    Or(And(AKnight, Not(AKnave)), And(AKnave, Not(AKnight))),
+    Implication(AKnight, And(AKnight, AKnave))
 
 )
 
@@ -21,10 +21,10 @@ knowledge0 = And(
 # A says "We are both knaves."
 # B says nothing.
 knowledge1 = And(
-    Or(And(AKnight,Not(AKnave)), And(AKnave, Not(AKnight))),
-    Or(And(BKnight,Not(BKnave)), And(BKnave, Not(BKnight))),
+    Or(And(AKnight, Not(AKnave)), And(AKnave, Not(AKnight))),
+    Or(And(BKnight, Not(BKnave)), And(BKnave, Not(BKnight))),
 
-    Implication(AKnight, And(AKnave,BKnave)),
+    Implication(AKnight, And(AKnave, BKnave)),
     Implication(AKnave, Not(And(BKnave, AKnave)))
 )
 
@@ -32,12 +32,12 @@ knowledge1 = And(
 # A says "We are the same kind."
 # B says "We are of different kinds."
 knowledge2 = And(
-    Or(And(AKnight,Not(AKnave)), And(AKnave, Not(AKnight))),
-    Or(And(BKnight,Not(BKnave)), And(BKnave, Not(BKnight))),
+    Or(And(AKnight, Not(AKnave)), And(AKnave, Not(AKnight))),
+    Or(And(BKnight, Not(BKnave)), And(BKnave, Not(BKnight))),
     # A said:
-    Biconditional(AKnight,  Or(And(AKnight,BKnight), And(AKnave, BKnave))),
+    Biconditional(AKnight,  Or(And(AKnight, BKnight), And(AKnave, BKnave))),
     # b said:
-    Biconditional(BKnight, Or(And(AKnave,BKnight), And(AKnight, BKnave))),
+    Biconditional(BKnight, Or(And(AKnave, BKnight), And(AKnight, BKnave))),
 )
 
 # Puzzle 3
@@ -45,7 +45,7 @@ knowledge2 = And(
 # B says "A said 'I am a knave'."
 # B says "C is a knave."
 # C says "A is a knight."
-sentence0 = Or(And(AKnight,Not(AKnave)), And(AKnave, Not(AKnight))) # im a knight
+sentence0 = Or(And(AKnight, Not(AKnave)), And(AKnave, Not(AKnight)))  # im a knight
 sentence1 = Or(And(AKnight, AKnave), And(AKnave, Not(AKnave)))  # im a knave
 knowledge3 = And(
     # Or(And(AKnight,Not(AKnave)), And(AKnave, Not(AKnight))),
