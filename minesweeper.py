@@ -185,9 +185,27 @@ class MinesweeperAI():
             for j in range(cell[1] - 1,cell[1] + 2):
                 if j <0 or j > self.width:
                     continue
+                elif (i,j) == cell:
+                    continue
                 neighbors.add((i,j))
         return neighbors
             
+    def mark_knowledge(self):
+        safes = set()
+        mines = set()
+        for sentence in self.knowledge:
+            if sentence.known_mines():
+                for mine in sentence.known_mines():
+                    mines.add(mine)
+            if sentence.known_safes():
+                for safe in sentence.known_safes():
+                    safes.add(safe)
+        for mine in mines:
+            self.mark_mine(mine)
+        for safe in safes:
+            self.mark_safe(safe)
+        return
+    
     def add_knowledge(self, cell, count):
      
         # Called when the Minesweeper board tells us, for a given
@@ -209,8 +227,7 @@ class MinesweeperAI():
         self.knowledge.append(new_knowledge)
         #     4) mark any additional cells as safe or as mines
         #        if it can be concluded based on the AI's knowledge base
-        self.mark_mine(cell)
-        self.mark_safe(cell)
+        self.mark_knowledge()
         #     5) add any new sentences to the AI's knowledge base
         #        if they can be inferred from existing knowledge
         
