@@ -191,23 +191,38 @@ class MinesweeperAI():
         return neighbors
             
     def mark_knowledge(self):
-        safes = set()
-        mines = set()
-        for sentence in self.knowledge:
-            if sentence.known_mines():
-                for mine in sentence.known_mines():
-                    if mine not in self.mines or self.moves_made:
-                        mines.add(mine)
-            if sentence.known_safes():
-                for safe in sentence.known_safes():
-                    if safe not in self.safes or self.moves_made:
-                        safes.add(safe)
-        for mine in mines:
-            self.mark_mine(mine)
-        for safe in safes:
-            self.mark_safe(safe)
-        return
-    
+        """
+        Continually updates knowledge until no further 
+        safes or mines can be identified.
+        """
+        made_progress = True
+        while made_progress:
+            made_progress = False
+            
+            # 1. Collect everything we can currently prove
+            new_safes = set()
+            new_mines = set()
+            
+            for sentence in self.knowledge:
+                new_safes.update(sentence.known_safes())
+                new_mines.update(sentence.known_mines())
+                
+            # 2. If we found something new, mark it and set flag to loop again
+            if new_safes:
+                for safe in new_safes:
+                    if safe not in self.safes:
+                        self.mark_safe(safe)
+                        made_progress = True
+                        
+            if new_mines:
+                for mine in new_mines:
+                    if mine not in self.mines:
+                        self.mark_mine(mine)
+                        made_progress = True
+            
+            # 3. Clean up: remove empty sentences from knowledge
+            self.knowledge = [s for s in self.knowledge if len(s.cells) > 0]
+        
     def add_knowledge(self, cell, count):
      
         # Called when the Minesweeper board tells us, for a given
@@ -223,7 +238,10 @@ class MinesweeperAI():
         cells = self.neighbors_mines(cell)
         not_sure_cells = set()
         for cll in cells:
-            if cll not in (self.safes|self.mines|self.moves_made):
+            if cll in self.mines:
+                count -= 1
+                continue
+            if cll not in (self.safes|self.moves_made):
                 not_sure_cells.add(cll)
         new_knowledge = Sentence(not_sure_cells,count)
         self.knowledge.append(new_knowledge)
