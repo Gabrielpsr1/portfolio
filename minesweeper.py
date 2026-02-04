@@ -138,6 +138,7 @@ class Sentence():
             self.cells.remove(cell)
         return
 
+
 class MinesweeperAI():
     """
     Minesweeper game player
@@ -177,17 +178,17 @@ class MinesweeperAI():
         for sentence in self.knowledge:
             sentence.mark_safe(cell)
       
-    def neighbors_mines(self,cell):
+    def neighbors_mines(self, cell):
         neighbors = set()
-        for i in range(cell[0] - 1,cell[0] + 2):
+        for i in range(cell[0] - 1, cell[0] + 2):
             if i < 0 or i > self.height - 1:
                 continue
-            for j in range(cell[1] - 1,cell[1] + 2):
-                if j <0 or j > self.width - 1:
+            for j in range(cell[1] - 1, cell[1] + 2):
+                if j < 0 or j > self.width - 1:
                     continue
-                elif (i,j) == cell:
+                elif (i, j) == cell:
                     continue
-                neighbors.add((i,j))
+                neighbors.add((i, j))
         return neighbors
             
     def mark_knowledge(self):
@@ -241,9 +242,9 @@ class MinesweeperAI():
             if cll in self.mines:
                 count -= 1
                 continue
-            if cll not in (self.safes|self.moves_made):
+            if cll not in (self.safes | self.moves_made):
                 not_sure_cells.add(cll)
-        new_knowledge = Sentence(not_sure_cells,count)
+        new_knowledge = Sentence(not_sure_cells, count)
         self.knowledge.append(new_knowledge)
         #     4) mark any additional cells as safe or as mines
         #        if it can be concluded based on the AI's knowledge base
@@ -257,7 +258,8 @@ class MinesweeperAI():
                 if sentence == sentence2:
                     continue
                 elif sentence.cells <= sentence2.cells:   
-                    sntc = Sentence(sentence2.cells - sentence.cells,sentence2.count - sentence.count)
+                    sntc = Sentence(sentence2.cells - sentence.cells,
+                                    sentence2.count - sentence.count)
                     if not sntc.cells:
                         continue
                     elif sntc in self.knowledge:
@@ -268,7 +270,6 @@ class MinesweeperAI():
         self.mark_knowledge()
 
         return
-    
     
     def make_safe_move(self):
         """
@@ -295,8 +296,8 @@ class MinesweeperAI():
         # for i in range(self.height):
         #     for j in range(self.width):
         #         move = (i,j)
-        while(1):
-            move = (random.randint(0,self.width - 1),random.randint(0,self.height - 1))
-            if move not in(self.safes|self.mines|self.moves_made):
+        while (1):
+            move = (random.randint(0, self.width - 1), random.randint(0, self.height - 1))
+            if move not in (self.safes | self.mines | self.moves_made):
                 return move
         return None
