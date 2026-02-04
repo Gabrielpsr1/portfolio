@@ -223,7 +223,7 @@ class MinesweeperAI():
         cells = self.neighbors_mines(cell)
         not_sure_cells = set()
         for cll in cells:
-            if cll not in self.safes or self.mines or self.moves_made:
+            if cll not in (self.safes|self.mines|self.moves_made):
                 not_sure_cells.add(cll)
         new_knowledge = Sentence(not_sure_cells,count)
         self.knowledge.append(new_knowledge)
@@ -271,6 +271,6 @@ class MinesweeperAI():
         for i in range(self.height):
             for j in range(self.width):
                 move = (i,j)
-                if move not in self.moves_made and move not in self.mines and move not in self.safes:
+                if move not in(self.safes|self.mines|self.moves_made):
                     return (i, j)
         return None
