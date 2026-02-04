@@ -240,6 +240,8 @@ class MinesweeperAI():
                     continue
                 elif sentence.cells <= sentence2.cells:   
                     sntc = Sentence(sentence2.cells - sentence.cells,sentence2.count - sentence.count)
+                    if sntc in self.knowledge:
+                        continue
                     new_sntc.append(sntc)
         self.knowledge.extend(new_sntc)
         return
@@ -255,8 +257,8 @@ class MinesweeperAI():
         """
         for i in range(self.height):
             for j in range(self.width):
-                if (i,j) in self.safes and (i,j) not in self.moves_made: 
-                    return (i,j)
+                if (i, j) in self.safes and (i, j) not in self.moves_made: 
+                    return (i, j)
         return None
 
     def make_random_move(self):
@@ -268,6 +270,7 @@ class MinesweeperAI():
         """
         for i in range(self.height):
             for j in range(self.width):
-                if (i,j) not in self.mines or (i,j) not in self.moves_made or (i,j) not in self.safes: 
-                    return (i,j)
+                move = (i,j)
+                if move not in self.moves_made and move not in self.mines and move not in self.safes:
+                    return (i, j)
         return None
