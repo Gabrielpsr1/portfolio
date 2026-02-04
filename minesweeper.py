@@ -240,11 +240,17 @@ class MinesweeperAI():
                     continue
                 elif sentence.cells <= sentence2.cells:   
                     sntc = Sentence(sentence2.cells - sentence.cells,sentence2.count - sentence.count)
-                    if sntc in self.knowledge:
+                    if not sntc.cells:
+                        continue
+                    elif sntc in self.knowledge:
                         continue
                     new_sntc.append(sntc)
         self.knowledge.extend(new_sntc)
+
+        self.mark_knowledge()
+        
         return
+    
     
     def make_safe_move(self):
         """
