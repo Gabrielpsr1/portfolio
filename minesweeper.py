@@ -248,7 +248,7 @@ class MinesweeperAI():
         self.knowledge.extend(new_sntc)
 
         self.mark_knowledge()
-        
+
         return
     
     
@@ -274,9 +274,11 @@ class MinesweeperAI():
             1) have not already been chosen, and
             2) are not known to be mines
         """
-        for i in range(self.height):
-            for j in range(self.width):
-                move = (i,j)
-                if move not in(self.safes|self.mines|self.moves_made):
-                    return (i, j)
+        # for i in range(self.height):
+        #     for j in range(self.width):
+        #         move = (i,j)
+        while(1):
+            move = (random.randint(0,self.width - 1),random.randint(0,self.height - 1))
+            if move not in(self.safes|self.mines|self.moves_made):
+                return move
         return None
