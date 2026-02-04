@@ -180,10 +180,10 @@ class MinesweeperAI():
     def neighbors_mines(self,cell):
         neighbors = set()
         for i in range(cell[0] - 1,cell[0] + 2):
-            if i < 0 or i > self.height:
+            if i < 0 or i > self.height - 1:
                 continue
             for j in range(cell[1] - 1,cell[1] + 2):
-                if j <0 or j > self.width:
+                if j <0 or j > self.width - 1:
                     continue
                 elif (i,j) == cell:
                     continue
