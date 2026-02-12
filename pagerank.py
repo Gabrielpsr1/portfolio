@@ -79,11 +79,13 @@ def transition_model(corpus, page, damping_factor):
             transition_model[link] += chance_random_surfer
     return transition_model
 
+
 def normalize(probs):
     total = sum(probs.values())
     for key in probs:
         probs[key] /= total
     return probs
+
 
 def generate_sample(corpus, page, damping_factor):
     # choose the next page based on the transition model
@@ -91,10 +93,11 @@ def generate_sample(corpus, page, damping_factor):
     tm = transition_model(corpus, page, damping_factor)
     aux = 0
     # loops in all prob values until they match the random number
-    for key,value in tm.items():
+    for key, value in tm.items():
         aux += value
         if random_number <= aux:
             return key
+        
 
 def sample_pagerank(corpus, damping_factor, n):
     """
@@ -122,15 +125,17 @@ def sample_pagerank(corpus, damping_factor, n):
 
     return normalize(sample_pagerank)
 
+
 def links(corpus, page):
     """
     returns all links that goes to a n page
     """
     links = []
-    for key,value in corpus.items():
+    for key, value in corpus.items():
         if page in value:
             links.append(key)
     return links
+
 
 def iterate_pagerank(corpus, damping_factor):
     """
@@ -151,7 +156,7 @@ def iterate_pagerank(corpus, damping_factor):
         iterate_pagerank_aux[page] = 1
 
     loop = True
-    while(loop):
+    while (loop):
 
         new_pagerank = iterate_pagerank.copy()
         for page in pages:
@@ -176,6 +181,7 @@ def iterate_pagerank(corpus, damping_factor):
         iterate_pagerank_aux = iterate_pagerank.copy()
 
     return normalize(iterate_pagerank)
+
 
 if __name__ == "__main__":
     main()
