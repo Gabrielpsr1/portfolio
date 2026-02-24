@@ -192,7 +192,6 @@ def joint_probability(people, one_gene, two_genes, have_trait):
     return result
 
     
-
 def update(probabilities, one_gene, two_genes, have_trait, p):
     """
     Add to `probabilities` a new joint probability `p`.
@@ -229,6 +228,7 @@ def normalize(probabilities):
         total = sum(i for i in probabilities[person]["trait"].values())
         for bl in probabilities[person]["trait"]:
             probabilities[person]["trait"][bl] = probabilities[person]["trait"][bl] / total
+
 
 if __name__ == "__main__":
     main()
