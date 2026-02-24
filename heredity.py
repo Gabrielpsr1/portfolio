@@ -221,12 +221,12 @@ def normalize(probabilities):
     """
     for person in probabilities:
         # genes normalization:
-        total = sum(i for k,i in probabilities[person]["gene"])
+        total = sum(i for i in probabilities[person]["gene"].values())
         for n_gene in probabilities[person]["gene"]:
             probabilities[person]["gene"][n_gene] = probabilities[person]["gene"][n_gene] / total
         
         # trait normalization:
-        total = sum(i for k,i in probabilities[person]["trait"])
+        total = sum(i for i in probabilities[person]["trait"].values())
         for bl in probabilities[person]["trait"]:
             probabilities[person]["trait"][bl] = probabilities[person]["trait"][bl] / total
 
