@@ -99,9 +99,8 @@ class CrosswordCreator():
         (Remove any values that are inconsistent with a variable's unary
          constraints; in this case, the length of the word.)
         """
-        for var,domain in self.domains.items():
+        for var, domain in self.domains.items():
             self.domains[var] = {x for x in domain if len(x) == var.length}
-
 
     def revise(self, x, y):
         """
@@ -113,7 +112,7 @@ class CrosswordCreator():
         False if no revision was made.
         """
         revision = []
-        b_constrain = self.crossword.overlaps[x,y]
+        b_constrain = self.crossword.overlaps[x, y]
         if b_constrain == None:
             return False
         
@@ -126,7 +125,6 @@ class CrosswordCreator():
         
         self.domains[x] = {x for x in self.domains[x] if x not in revision}
         return bool(revision)
-
 
     def ac3(self, arcs=None):
         """
@@ -141,7 +139,8 @@ class CrosswordCreator():
             arcs = []
             for x in self.domains:
                 for y in self.domains:
-                    if x == y: continue
+                    if x == y: 
+                        continue
                     arcs.append((x, y))
         self.enforce_node_consistency()
         while arcs:
@@ -151,10 +150,8 @@ class CrosswordCreator():
                     return False
                 for z in set(self.crossword.neighbors(x)) - {y}:
                     arcs.append((z, x))
-        
         return True
     
-
     def assignment_complete(self, assignment):
         """
         Return True if `assignment` is complete (i.e., assigns a value to each
@@ -165,14 +162,13 @@ class CrosswordCreator():
                 return False
         return True
     
-
     def consistent(self, assignment):
         """
         Return True if `assignment` is consistent (i.e., words fit in crossword
         puzzle without conflicting characters); return False otherwise.
         """
         # check if all words are different, the correct len 
-        for var,word in assignment.items():
+        for var, word in assignment.items():
             # all are different
             if list(assignment.values()).count(word) > 1:
                 return False
@@ -181,12 +177,11 @@ class CrosswordCreator():
                 return False
             # no neighbors conflicts
             for ngb in self.crossword.neighbors(var):
-                i,j = self.crossword.overlaps[var,ngb]
+                i, j = self.crossword.overlaps[var, ngb]
                 if ngb in assignment:
                     if assignment[var][i] != assignment[ngb][j]:
                         return False
         return True
-
 
     def count_constrains(self, var, value, ngbrs):
         constrain = 0
@@ -211,14 +206,13 @@ class CrosswordCreator():
         values_dict = dict()
         # loop for each value
         for value in self.domains[var]:
-        # count how many constrains and save it
+            # count how many constrains and save it
             values_dict[value] = self.count_constrains(var, value, ngbrs)
         # order it
         sorted_d = dict(sorted(values_dict.items(), key=lambda x: x[1]))
 
         return list(sorted_d.keys())
     
-
     def select_unassigned_variable(self, assignment):
         """
         Return an unassigned variable not already part of `assignment`.
@@ -236,7 +230,6 @@ class CrosswordCreator():
         most_neighbors = max(tied_vars.items(), key=lambda x: self.crossword.neighbors(x[0]))
         return most_neighbors[0]
     
-
     def backtrack(self, assignment):
         """
         Using Backtracking Search, take as input a partial assignment for the
@@ -260,7 +253,6 @@ class CrosswordCreator():
                 assignment.pop(var)
             return None
                 
-
 
 def main():
 
