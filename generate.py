@@ -119,9 +119,9 @@ class CrosswordCreator():
         
         for word in self.domains[x]:
             for word2 in self.domains[y]:
-    
                 if word[b_constrain[0]] == word2[b_constrain[1]]:
                     break
+            else:
                 revision.append(word)
         
         self.domains[x] = {x for x in self.domains[x] if x not in revision}
@@ -181,7 +181,7 @@ class CrosswordCreator():
                 return False
             # no neighbors conflicts
             for ngb in self.crossword.neighbors(var):
-                i,j = self.crossword.overlaps(var,ngb)
+                i,j = self.crossword.overlaps[var,ngb]
                 if assignment[var][i] != assignment[ngb][j]:
                     return False
         return True
@@ -191,8 +191,8 @@ class CrosswordCreator():
         constrain = 0
         for ngbr, words in ngbrs.items():
             for word in words:
-                i,j = self.crossword.overlaps(var, ngbr)
-                if word[i] != value[i]:
+                i, j = self.crossword.overlaps[var, ngbr]
+                if word[j] != value[i]:
                     constrain += 1
         return constrain
 
