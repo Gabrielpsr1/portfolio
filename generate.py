@@ -141,7 +141,7 @@ class CrosswordCreator():
             arcs = []
             for x in self.domains:
                 for y in self.domains:
-                    if x == y: break
+                    if x == y: continue
                     arcs.append((x, y))
         self.enforce_node_consistency()
         while arcs:
@@ -182,8 +182,9 @@ class CrosswordCreator():
             # no neighbors conflicts
             for ngb in self.crossword.neighbors(var):
                 i,j = self.crossword.overlaps[var,ngb]
-                if assignment[var][i] != assignment[ngb][j]:
-                    return False
+                if ngb in assignment:
+                    if assignment[var][i] != assignment[ngb][j]:
+                        return False
         return True
 
 
