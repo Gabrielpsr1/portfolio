@@ -100,7 +100,7 @@ class CrosswordCreator():
          constraints; in this case, the length of the word.)
         """
         for var,domain in self.domains.items():
-            self.domains[var] = [x for x in domain if len(x) == var.length]
+            self.domains[var] = {x for x in domain if len(x) == var.length}
 
 
     def revise(self, x, y):
@@ -124,7 +124,7 @@ class CrosswordCreator():
                     break
                 revision.append(word)
         
-        self.domains[x] = [x for x in self.domains[x] if x not in revision]
+        self.domains[x] = {x for x in self.domains[x] if x not in revision}
         return bool(revision)
 
 
@@ -177,7 +177,7 @@ class CrosswordCreator():
             if list(assignment.values()).count(word) > 1:
                 return False
             # correct len
-            if word.len() != var.length():
+            if len(word) != var.length:
                 return False
             # no neighbors conflicts
             for ngb in self.crossword.neighbors(var):
@@ -204,7 +204,8 @@ class CrosswordCreator():
         that rules out the fewest values among the neighbors of `var`.
         """
         # get all the neighbors
-        ngbrs = set(self.crossword.neighbors(var)) - set(assignment.keys())
+        ngbrs_set = set(self.crossword.neighbors(var)) - set(assignment.keys())
+        ngbrs = {x: y for x, y in self.domains.items() if x in ngbrs_set}
         # count how constraining a value is
         values_dict = dict()
         # loop for each value
