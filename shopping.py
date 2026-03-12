@@ -80,7 +80,7 @@ def load_data(filename):
         "New_Visitor": 0,
         "Other": 0
     }
-    with open(filename,'r') as f:
+    with open(filename, 'r') as f:
         reader = csv.reader(f)
         next(reader)
         for row in reader:
