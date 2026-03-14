@@ -70,6 +70,7 @@ class Nim():
             self.winner = self.player
 
 
+
 class NimAI():
 
     def __init__(self, alpha=0.5, epsilon=0.1):
@@ -161,8 +162,10 @@ class NimAI():
             if random.random() <= self.epsilon:
                 return random.choice(list(actions))
             
-        return self.best_future_reward(state)
-       
+        best = self.best_future_reward(state)
+        for action in actions:
+            if self.get_q_value(state, action) == best:
+                return action
 
 
 def train(n):
