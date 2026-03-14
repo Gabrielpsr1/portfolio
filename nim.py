@@ -124,7 +124,7 @@ class NimAI():
         """
         if type(future_rewards) is tuple:
             future_rewards = max(future_rewards)
-        self.q[(tuple(state), action)] = old_q + self.alpha * (reward * future_rewards - old_q)
+        self.q[(tuple(state), action)] = old_q + self.alpha * (reward + future_rewards - old_q)
 
     def best_future_reward(self, state):
         """
