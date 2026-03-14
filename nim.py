@@ -70,7 +70,6 @@ class Nim():
             self.winner = self.player
 
 
-
 class NimAI():
 
     def __init__(self, alpha=0.5, epsilon=0.1):
