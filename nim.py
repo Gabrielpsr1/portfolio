@@ -138,7 +138,7 @@ class NimAI():
    
         nim_game = Nim(state)
         actions = nim_game.available_actions(state)
-        return max(actions, key=lambda action: self.get_q_value(state, action)) if actions else 0
+        return max(self.get_q_value(state, action) for action in actions) if actions else 0
 
     def choose_action(self, state, epsilon=True):
         """
