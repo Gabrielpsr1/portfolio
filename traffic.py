@@ -63,7 +63,7 @@ def load_data(data_dir):
 
     # loop over all directories
     for i in range(NUM_CATEGORIES):
-        path = os.path.join('gtsrb', 'gtsrb', str(i))
+        path = os.path.join(data_dir, str(i))
 
         # loop over all images in the file
         for img_file in os.listdir(path):
