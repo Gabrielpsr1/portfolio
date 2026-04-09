@@ -1,46 +1,116 @@
-this is like a log of the process of coding this CNN
+# 🚦 Traffic — CS50 AI
 
-1- In my first try, I used one hidden layer and the follow parameters:
-    filters = 32
-    dropout = 0.5
-    hidden_layer_units = 128
-    pool_sz = 2, 2
-    kernel_size = 3, 3
-the result was kinda bad:
-333/333 - 2s - 5ms/step - accuracy: 0.0551 - loss: 3.5058
-I'll try to apply more filters, increase the number of hidden layers and not modify the pool_size or the kernell
+A development log documenting the process of building a 
+Convolutional Neural Network (CNN) to classify traffic signs
+from the GTSRB dataset.
 
-2- added one layer, and the parameters are:
-    filters = 48
-    dropout = 0.5
-    hidden_layer_units = 256
-    pool_sz = 2, 2
-    kernel_size = 3, 3
-the result still pretty bad:
-333/333 - 2s - 5ms/step - accuracy: 0.0536 - loss: 3.5067
-no progress
-try to add more convolutional layers, and since doubling the units in a hidden layer didn't took me any futher, i'll go back to just 128
+---
 
-3- Went back to 128 units, added two more convolutional layers, each one doubling the filter the last had to compensate the pooling.
-so the filters are something like: 32->64->128
-and after the filters and pool sizing there are 3 hidden layers with 128 units
-dropout, pool_sz and kernel_size are all the same as before
-results are way better now:
-333/333 - 2s - 7ms/step - accuracy: 0.6202 - loss: 1.0348
-maybe adding one more conv layer and one more hidden layer can make it even better, since every layer I'm doubling the number of filters
+## 🧠 The Process
 
-4- for this model, I've increase the number of conv layers from 3 to 4 and the same for for hidden layers. I've decided to double the number of units for each layer
-great results:
-333/333 - 3s - 8ms/step - accuracy: 0.8513 - loss: 0.4270
-thinking about appling more filters, since adding more conv layers is virtually impossible because the pool size have gone till the limit and adding one more hidden layer, so the program can classify the data more accurately
+Building this CNN was a journey of trial and error. Each attempt
+taught me something new about how architecture choices affect
+a model's ability to learn.
 
-5 - I've add one more hidden layer and add more filters to the last conv layer. Didn't work at all
-333/333 - 2s - 7ms/step - accuracy: 0.3850 - loss: 1.7613
-i'll go back to 4's configs and add one more hidden layer
+---
 
-6- 333/333 - 2s - 7ms/step - accuracy: 0.5956 - loss: 1.1588
+### Attempt 1 — The Starting Point
 
-7- 333/333 - 4s - 13ms/step - accuracy: 0.3857 - loss: 1.8663
+My first model was simple: one convolutional layer, one hidden layer.
 
-after many attempts turns outn that 4's configs where the best, and lowering the dropout to 0.4 I could get:
-333/333 - 3s - 8ms/step - accuracy: 0.9267 - loss: 0.2678
+| Parameter       | Value   |
+|----------------|---------|
+| Filters         | 32      |
+| Kernel size     | (3, 3)  |
+| Pool size       | (2, 2)  |
+| Hidden units    | 128     |
+| Dropout         | 0.5     |
+
+**Result:** `accuracy: 0.0551 — loss: 3.5058` ❌
+
+Essentially random guessing. The model wasn't learning anything.
+My plan: add more filters and more hidden layers, keeping the
+pool size and kernel unchanged.
+
+---
+
+### Attempt 2 — More Filters, More Units
+
+I increased the filters and doubled the hidden layer units,
+hoping for improvement.
+
+| Parameter       | Value   |
+|----------------|---------|
+| Filters         | 48      |
+| Hidden units    | 256     |
+
+**Result:** `accuracy: 0.0536 — loss: 3.5067` ❌
+
+No meaningful progress. Simply scaling up the same architecture
+wasn't the answer. I decided to go deeper with more convolutional
+layers, and brought the hidden units back to 128.
+
+---
+
+### Attempt 3 — Going Deeper 🔑
+
+This was the turning point. Instead of one convolutional layer,
+I stacked three — each doubling the filters to compensate for
+the information lost in pooling: `32 → 64 → 128`.
+I also added three hidden layers of 128 units each.
+
+**Result:** `accuracy: 0.6202 — loss: 1.0348` ✅
+
+A massive jump. Depth was clearly the missing ingredient.
+
+---
+
+### Attempt 4 — Best Model 🏆
+
+I pushed further: four convolutional layers, four hidden layers,
+doubling the units at each dense layer.
+
+**Result:** `accuracy: 0.8513 — loss: 0.4270` ✅✅
+
+Great results. The architecture had reached the pooling limit,
+so adding more convolutional layers wasn't viable anymore.
+
+---
+
+### Attempts 5, 6 & 7 — Diminishing Returns
+
+I experimented with more hidden layers and more filters,
+but the results got worse:
+
+| Attempt | Accuracy | Loss   |
+|---------|----------|--------|
+| 5       | 0.3850   | 1.7613 |
+| 6       | 0.5956   | 1.1588 |
+| 7       | 0.3857   | 1.8663 |
+
+Overfitting and instability. More complexity wasn't helping.
+
+---
+
+### Final Model — Fine-tuning 🎯
+
+I returned to Attempt 4's architecture and made one small
+adjustment: lowering the dropout from `0.5` to `0.4`.
+
+**Result:** `accuracy: 0.9267 — loss: 0.2678` 🏅
+
+The best result of all. Sometimes less regularization is
+exactly what the model needs.
+
+---
+
+## 💡 Key Takeaways
+
+- **Depth beats width** — stacking convolutional layers matters
+  more than just increasing filters or units.
+- **Doubling filters across layers** compensates for spatial
+  information lost in pooling.
+- **Fine-tuning small parameters** like dropout can make a
+  significant difference at the end.
+- More complexity doesn't always mean better results —
+  knowing when to stop is part of the process.
